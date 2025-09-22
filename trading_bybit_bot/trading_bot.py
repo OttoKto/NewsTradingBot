@@ -1,3 +1,4 @@
+import warnings_config  # Отключаем предупреждения
 import pandas as pd
 import numpy as np
 import datetime
@@ -13,18 +14,18 @@ from indicators.smart_signals_index4 import calculate_indicators, add_signals, c
 from tweet_analyzer.real_time_analyzer import init_tweets_table, load_tweets_from_csv, get_rolling_sentiment, RealTimeTwitterAPIParser
 from settings import capital, symbol, twitter_accounts
 from config import bybit_key, bybit_secret, twitter_key
-warnings.filterwarnings("ignore", category=FutureWarning)
+from paths import get_trading_log_path, get_database_path
 
 jax.config.update('jax_platform_name', 'cpu')
 
 logging.basicConfig(
-    filename='D:/python/weightened_indicators_news_bot/trading_log.log',
+    filename=get_trading_log_path(),
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)s: %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-DB_NAME = 'D:/python/weightened_indicators_news_bot/trading_bybit_bot/trading_data.db'
+DB_NAME = get_database_path()
 
 def init_db():
     """Инициализация SQLite базы данных."""

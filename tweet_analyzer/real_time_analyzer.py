@@ -1,3 +1,4 @@
+import warnings_config  # Отключаем предупреждения
 import json
 import logging
 import asyncio
@@ -10,17 +11,19 @@ import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import re
 import os
+import warnings
+from paths import get_trading_log_path, get_database_path, get_sentiment_csv_path
 
 # Configure logging
 logging.basicConfig(
-    filename='D:/python/weightened_indicators_news_bot/trading_log.log',
-    level=logging.DEBUG,
+    filename=get_trading_log_path(),
+    level=logging.INFO,
     format='%(asctime)s %(levelname)s: %(message)s'
 )
 logger = logging.getLogger(__name__)
 
 # Correct database path
-DB_NAME = 'D:/python/weightened_indicators_news_bot/trading_bybit_bot/trading_data.db'
+DB_NAME = get_database_path()
 
 # Initialize FinBERT
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -105,7 +108,7 @@ def init_tweets_table():
 def load_tweets_from_csv():
     """Load tweets from sentiment_BTC.csv into tweets table, avoiding duplicates."""
     try:
-        csv_path = 'D:/python/weightened_indicators_news_bot/tweet_analyzer/sentiment_BTC.csv'
+        csv_path = get_sentiment_csv_path('BTC')
         if not os.path.exists(csv_path):
             logger.warning(f"CSV file not found: {csv_path}, creating sample CSV")
             sample_data = {
@@ -180,23 +183,14 @@ def store_tweet(tweet_data):
             logger.debug(f"Skipping tweet not relevant to crypto: {tweet_data['text'][:50]}...")
             return
 
-        # Handle various timestamp formats
-        created_at = tweet_data['created_at']
-        timestamp = None
         try:
-            # Try ISO 8601 format (e.g., 2025-09-18T15:34:44Z)
-            timestamp = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d %H:%M:%S')
-        except ValueError:
+            timestamp = datetime.utcfromtimestamp(int(tweet_data['created_at']) / 1000).strftime('%Y-%m-%d %H:%M:%S')
+        except (ValueError, TypeError):
             try:
-                # Try Unix timestamp in milliseconds
-                timestamp = datetime.utcfromtimestamp(int(created_at) / 1000).strftime('%Y-%m-%d %H:%M:%S')
-            except (ValueError, TypeError):
-                try:
-                    # Try alternative ISO format with milliseconds (e.g., 2025-09-18T15:34:44.123Z)
-                    timestamp = datetime.strptime(created_at.replace('.000Z', 'Z'), '%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d %H:%M:%S')
-                except ValueError:
-                    logger.error(f"Invalid timestamp format for created_at={created_at!r}, using current time")
-                    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                timestamp = datetime.strptime(tweet_data['created_at'], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
+            except ValueError:
+                logger.error(f"Invalid timestamp format: {tweet_data['created_at']}")
+                timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         sentiment_score, probs = get_sentiment(tweet_data['text'])
 
@@ -449,12 +443,17 @@ class RealTimeTwitterAPIParser:
         logger.info("WebSocket connection opened")
         logger.info("Waiting for server to send data...")
 
-    async def start_real_time_parsing(self, max_retries=5, initial_backoff=5):
-        """Start the WebSocket client for streaming with reconnection logic."""
-        # Check active connection
-        if self.ws and hasattr(self.ws, 'open') and self.ws.open:
-            logger.warning("Streaming already active")
-            return
+    async def start_real_time_parsing(self):
+        """Start the WebSocket client for streaming."""
+        # Проверяем активное соединение
+        if self.ws:
+            try:
+                if self.ws.open:
+                    logger.warning("Streaming already active")
+                    return
+            except AttributeError:
+                logger.warning("Streaming already active (ws.open не найден)")
+                return
 
         if not hasattr(self, 'rule_id') or not self.rule_id:
             self.rule_id = await self.create_filter_rule()
@@ -469,14 +468,13 @@ class RealTimeTwitterAPIParser:
         ]
         logger.info(f"Starting WebSocket with headers: {headers}")
 
-        retry_count = 0
-        while self.should_reconnect and retry_count < max_retries:
+        while self.should_reconnect:
             try:
                 self.ws = await websockets.connect(
                     "wss://ws.twitterapi.io/twitter/tweet/websocket",
                     additional_headers=headers,
-                    ping_interval=20,  # Send ping every 20 seconds
-                    ping_timeout=10  # Wait 10 seconds for pong
+                    ping_interval=20,  # каждые 20 секунд отправляем ping
+                    ping_timeout=10  # ждём pong максимум 10 секунд
                 )
                 logger.info("WebSocket connection established")
                 await self.on_open(self.ws)
@@ -485,28 +483,16 @@ class RealTimeTwitterAPIParser:
                     try:
                         message = await self.ws.recv()
                         await self.on_message(self.ws, message)
-                    except websockets.exceptions.ConnectionClosedOK as e:
-                        logger.warning(f"WebSocket closed with 1001 (going away): {str(e)}")
-                        break
                     except websockets.exceptions.ConnectionClosedError as e:
-                        logger.error(f"WebSocket closed unexpectedly: {str(e)}")
+                        logger.warning(f"WebSocket closed unexpectedly: {e}")
                         break
                     except Exception as e:
-                        logger.error(f"Error receiving message: {str(e)}", exc_info=True)
+                        logger.error(f"Error receiving message: {e}", exc_info=True)
                         await asyncio.sleep(5)
-
-                retry_count = 0  # Reset retry count on successful connection
 
             except Exception as e:
                 logger.error(f"Error starting WebSocket: {str(e)}", exc_info=True)
-                retry_count += 1
-                if retry_count >= max_retries:
-                    logger.error(f"Max retries ({max_retries}) reached, stopping reconnection")
-                    self.should_reconnect = False
-                    break
-                backoff = initial_backoff * (2 ** (retry_count - 1))
-                logger.info(f"Reconnecting in {backoff} seconds (attempt {retry_count}/{max_retries})...")
-                await asyncio.sleep(backoff)
+                await asyncio.sleep(30)
 
             finally:
                 if self.ws:
@@ -517,8 +503,9 @@ class RealTimeTwitterAPIParser:
                     except Exception as e:
                         logger.error(f"Error closing WebSocket: {e}", exc_info=True)
 
-        if not self.should_reconnect:
-            logger.info("Streaming stopped due to max retries or manual stop")
+                if self.should_reconnect:
+                    logger.info("Reconnecting in 30 seconds...")
+                    await asyncio.sleep(30)
 
     async def stop_real_time_parsing(self):
         """Stop the WebSocket client."""

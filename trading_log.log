@@ -1,0 +1,938 @@
+2025-09-18 15:33:36,541 INFO: Using device: cpu 
+2025-09-18 15:33:39,345 INFO: Начало месячной оптимизации
+2025-09-18 15:33:46,703 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 15:33:49,860 INFO: Unable to initialize backend 'tpu': UNIMPLEMENTED: LoadPjrtPlugin is not implemented on windows yet.
+2025-09-18 15:34:15,036 INFO: Starting stage 1 optimization with 540 combinations
+2025-09-18 15:34:15,036 INFO: Running grid optimization with 540 combinations
+2025-09-18 15:35:25,878 INFO: Лучший результат этапа 1: 17132.97, параметры: {'Take Profit %': 7, 'Stop Loss %': 3, 'Entry Threshold_0_2': 0.3, 'Entry Threshold_0_5': 0.9, 'Leverage': 1, 'Final Capital': np.float64(17132.966888913426), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 17:00:00   59508.50   59776.00  ...         0  10000.000000
+2024-09-18 18:00:00   59487.61   59757.06  ...         0  10000.000000
+2024-09-18 19:00:00   59429.19   59954.00  ...         0  10000.000000
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 11:00:00  117086.01  117413.04  ...         1  17148.311632
+2025-09-18 12:00:00  117229.58  117350.00  ...         1  17158.437114
+2025-09-18 13:00:00  117298.82  117307.50  ...         1  17142.589169
+2025-09-18 14:00:00  117190.48  117300.00  ...         1  17124.001405
+2025-09-18 15:00:00  117063.41  117279.00  ...         1  17132.966889
+
+[8759 rows x 67 columns]}
+2025-09-18 15:35:25,879 INFO: Starting stage 2 optimization with 81 combinations
+2025-09-18 15:35:25,879 INFO: Running grid optimization with 81 combinations
+2025-09-18 15:35:38,026 INFO: Лучший результат этапа 2: 19984.40, параметры: {'Take Profit %': np.int64(7), 'Stop Loss %': np.float64(3.5), 'Entry Threshold_0_2': np.float64(0.4), 'Entry Threshold_0_5': np.float64(0.9), 'Leverage': 1, 'Final Capital': np.float64(19984.401159069905), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 17:00:00   59508.50   59776.00  ...         0  10000.000000
+2024-09-18 18:00:00   59487.61   59757.06  ...         0  10000.000000
+2024-09-18 19:00:00   59429.19   59954.00  ...         0  10000.000000
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 11:00:00  117086.01  117413.04  ...         1  20002.299722
+2025-09-18 12:00:00  117229.58  117350.00  ...         1  20014.110385
+2025-09-18 13:00:00  117298.82  117307.50  ...         1  19995.624872
+2025-09-18 14:00:00  117190.48  117300.00  ...         1  19973.943552
+2025-09-18 15:00:00  117063.41  117279.00  ...         1  19984.401159
+
+[8759 rows x 67 columns]}
+2025-09-18 15:35:38,026 INFO: ЛУЧШИЕ ПАРАМЕТРЫ: (np.int64(7), np.float64(3.5), np.float64(0.4), np.float64(0.9), 1) \u2192 Капитал: 19984.40
+2025-09-18 15:35:38,035 INFO: Результаты сохранены в C:\Users\otto\Desktop\bot\trading_bybit_bot\optimization_results.csv
+2025-09-18 15:35:38,679 INFO: Оптимизированные параметры: (np.int64(7), np.float64(3.5), np.float64(0.4), np.float64(0.9), 1)
+2025-09-18 15:35:38,687 INFO: [2025-09-18 15:33:39.345184] Сохранены оптимизированные параметры: tp=7.00, sl=3.50, e2=0.40, e5=0.90, leverage=1.00
+2025-09-18 15:35:39,446 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:35:44,280 INFO: Loaded 0 tweets from C:\Users\otto\Desktop\bot\tweet_analyzer\sentiment_BTC.csv into C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:35:44,283 WARNING: No tweets loaded from CSV, sentiment will default to 0.0
+2025-09-18 15:35:44,285 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:35:44,285 INFO: Parser initialized for 5 accounts
+2025-09-18 15:35:44,550 INFO: [2025-09-18 15:35:44.550236] Instrument info: min_qty=0.001, qty_step=0.001, tick_size=0.1
+2025-09-18 15:35:44,754 INFO: [2025-09-18 15:35:44.754554] No active position found
+2025-09-18 15:35:44,756 INFO: [2025-09-18 15:35:44.756064] Waiting for next hourly candle at 2025-09-18 16:00:00, sleeping for 1455.243936 seconds
+2025-09-18 15:35:45,110 INFO: Rule created with ID: 9b988e234a55412d95f1dee7603f82f5
+2025-09-18 15:35:46,015 INFO: Rule 9b988e234a55412d95f1dee7603f82f5 activated successfully
+2025-09-18 15:35:46,017 INFO: Starting WebSocket with headers: [('x-api-key', 'new1_b254c56b257e4d128dabbbb6f0adafdc'), ('User-Agent', 'TradingBot/1.0')]
+2025-09-18 15:35:46,600 INFO: WebSocket connection established
+2025-09-18 15:35:46,600 INFO: WebSocket connection opened
+2025-09-18 15:35:46,600 INFO: Waiting for server to send data...
+2025-09-18 15:35:46,680 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:46,828 INFO: Tweet saved: id=1968668938578862180 (general), author=@Unknown, sentiment=0.6986
+2025-09-18 15:35:46,828 INFO: Tweet received and processed: id=1968668938578862180, author=@Unknown, total_count=1
+2025-09-18 15:35:46,828 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:46,894 INFO: Tweet saved: id=1968667726169378847 (general), author=@Unknown, sentiment=0.0133
+2025-09-18 15:35:46,894 INFO: Tweet received and processed: id=1968667726169378847, author=@Unknown, total_count=2
+2025-09-18 15:35:46,894 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,009 INFO: Tweet saved: id=1968663176691462473 (general), author=@Unknown, sentiment=0.1943
+2025-09-18 15:35:47,009 INFO: Tweet received and processed: id=1968663176691462473, author=@Unknown, total_count=3
+2025-09-18 15:35:47,010 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,089 INFO: Tweet saved: id=1968661618876702842 (BTC), author=@Unknown, sentiment=0.2044
+2025-09-18 15:35:47,090 INFO: Tweet received and processed: id=1968661618876702842, author=@Unknown, total_count=4
+2025-09-18 15:35:47,090 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,190 INFO: Tweet saved: id=1968660884819005536 (general), author=@Unknown, sentiment=0.8975
+2025-09-18 15:35:47,190 INFO: Tweet received and processed: id=1968660884819005536, author=@Unknown, total_count=5
+2025-09-18 15:35:47,191 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,315 INFO: Tweet saved: id=1968659472236327254 (BTC,ETH,SOL), author=@Unknown, sentiment=0.1215
+2025-09-18 15:35:47,316 INFO: Tweet received and processed: id=1968659472236327254, author=@Unknown, total_count=6
+2025-09-18 15:35:47,316 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,397 INFO: Tweet saved: id=1968653851499585931 (BTC), author=@Unknown, sentiment=0.7403
+2025-09-18 15:35:47,397 INFO: Tweet received and processed: id=1968653851499585931, author=@Unknown, total_count=7
+2025-09-18 15:35:47,399 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,503 INFO: Tweet saved: id=1968649999215927522 (general), author=@Unknown, sentiment=0.0516
+2025-09-18 15:35:47,503 INFO: Tweet received and processed: id=1968649999215927522, author=@Unknown, total_count=8
+2025-09-18 15:35:47,503 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,583 INFO: Tweet saved: id=1968646358157381842 (BTC), author=@Unknown, sentiment=-0.1183
+2025-09-18 15:35:47,583 INFO: Tweet received and processed: id=1968646358157381842, author=@Unknown, total_count=9
+2025-09-18 15:35:47,583 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,675 INFO: Tweet saved: id=1968643750193779094 (BTC), author=@Unknown, sentiment=0.0304
+2025-09-18 15:35:47,675 INFO: Tweet received and processed: id=1968643750193779094, author=@Unknown, total_count=10
+2025-09-18 15:35:47,675 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,765 INFO: Tweet saved: id=1968638744228930028 (general), author=@Unknown, sentiment=0.0060
+2025-09-18 15:35:47,765 INFO: Tweet received and processed: id=1968638744228930028, author=@Unknown, total_count=11
+2025-09-18 15:35:47,765 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,865 INFO: Tweet saved: id=1968631235271385296 (general), author=@Unknown, sentiment=0.9236
+2025-09-18 15:35:47,866 INFO: Tweet received and processed: id=1968631235271385296, author=@Unknown, total_count=12
+2025-09-18 15:35:47,866 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:47,982 INFO: Tweet saved: id=1968623667492815117 (general), author=@Unknown, sentiment=0.2305
+2025-09-18 15:35:47,983 INFO: Tweet received and processed: id=1968623667492815117, author=@Unknown, total_count=13
+2025-09-18 15:35:47,983 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:48,074 INFO: Tweet saved: id=1968623644197765404 (BTC), author=@Unknown, sentiment=0.1137
+2025-09-18 15:35:48,074 INFO: Tweet received and processed: id=1968623644197765404, author=@Unknown, total_count=14
+2025-09-18 15:35:48,074 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:48,245 INFO: Tweet saved: id=1968619148231274566 (BTC), author=@Unknown, sentiment=0.0536
+2025-09-18 15:35:48,245 INFO: Tweet received and processed: id=1968619148231274566, author=@Unknown, total_count=15
+2025-09-18 15:35:48,245 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:48,335 INFO: Tweet saved: id=1968616136678723978 (general), author=@Unknown, sentiment=0.0003
+2025-09-18 15:35:48,337 INFO: Tweet received and processed: id=1968616136678723978, author=@Unknown, total_count=16
+2025-09-18 15:35:48,337 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:48,405 INFO: Tweet saved: id=1968608541230420239 (general), author=@Unknown, sentiment=-0.0012
+2025-09-18 15:35:48,405 INFO: Tweet received and processed: id=1968608541230420239, author=@Unknown, total_count=17
+2025-09-18 15:35:48,405 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:48,498 INFO: Tweet saved: id=1968608538265063494 (general), author=@Unknown, sentiment=0.0708
+2025-09-18 15:35:48,498 INFO: Tweet received and processed: id=1968608538265063494, author=@Unknown, total_count=18
+2025-09-18 15:35:48,499 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:48,560 INFO: Tweet saved: id=1968603767823028436 (general), author=@Unknown, sentiment=0.0085
+2025-09-18 15:35:48,560 INFO: Tweet received and processed: id=1968603767823028436, author=@Unknown, total_count=19
+2025-09-18 15:35:48,560 ERROR: Invalid timestamp format: 
+2025-09-18 15:35:48,679 INFO: Tweet saved: id=1968601912606888066 (general), author=@Unknown, sentiment=-0.2285
+2025-09-18 15:35:48,680 INFO: Tweet received and processed: id=1968601912606888066, author=@Unknown, total_count=20
+2025-09-18 15:37:26,415 ERROR: Invalid timestamp format: 
+2025-09-18 15:37:26,495 INFO: Tweet saved: id=1968670502152532121 (general), author=@Unknown, sentiment=0.0299
+2025-09-18 15:37:26,495 INFO: Tweet received and processed: id=1968670502152532121, author=@Unknown, total_count=21
+2025-09-18 15:43:11,112 INFO: Optimization loop cancelled
+2025-09-18 15:43:11,112 INFO: Trading loop cancelled
+2025-09-18 15:43:11,112 INFO: Reconnecting in 30 seconds...
+2025-09-18 15:43:11,113 INFO: Цикл оптимизации завершён
+2025-09-18 15:43:11,117 INFO: Торговый цикл завершён
+2025-09-18 15:43:20,695 INFO: Using device: cpu 
+2025-09-18 15:43:23,388 INFO: Начало месячной оптимизации
+2025-09-18 15:43:30,505 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 15:43:33,521 INFO: Unable to initialize backend 'tpu': UNIMPLEMENTED: LoadPjrtPlugin is not implemented on windows yet.
+2025-09-18 15:44:00,092 INFO: Starting stage 1 optimization with 540 combinations
+2025-09-18 15:44:00,093 INFO: Running grid optimization with 540 combinations
+2025-09-18 15:45:01,361 INFO: Лучший результат этапа 1: 17139.09, параметры: {'Take Profit %': 7, 'Stop Loss %': 3, 'Entry Threshold_0_2': 0.3, 'Entry Threshold_0_5': 0.9, 'Leverage': 1, 'Final Capital': np.float64(17139.08617215313), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 17:00:00   59508.50   59776.00  ...         0  10000.000000
+2024-09-18 18:00:00   59487.61   59757.06  ...         0  10000.000000
+2024-09-18 19:00:00   59429.19   59954.00  ...         0  10000.000000
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 11:00:00  117086.01  117413.04  ...         1  17154.436395
+2025-09-18 12:00:00  117229.58  117350.00  ...         1  17164.565494
+2025-09-18 13:00:00  117298.82  117307.50  ...         1  17148.711889
+2025-09-18 14:00:00  117190.48  117300.00  ...         1  17130.117486
+2025-09-18 15:00:00  117063.41  117279.00  ...         1  17139.086172
+
+[8759 rows x 67 columns]}
+2025-09-18 15:45:01,361 INFO: Starting stage 2 optimization with 81 combinations
+2025-09-18 15:45:01,361 INFO: Running grid optimization with 81 combinations
+2025-09-18 15:45:10,760 INFO: Лучший результат этапа 2: 19990.40, параметры: {'Take Profit %': np.int64(7), 'Stop Loss %': np.float64(3.5), 'Entry Threshold_0_2': np.float64(0.4), 'Entry Threshold_0_5': np.float64(0.9), 'Leverage': 1, 'Final Capital': np.float64(19990.40450830938), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 17:00:00   59508.50   59776.00  ...         0  10000.000000
+2024-09-18 18:00:00   59487.61   59757.06  ...         0  10000.000000
+2024-09-18 19:00:00   59429.19   59954.00  ...         0  10000.000000
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 11:00:00  117086.01  117413.04  ...         1  20008.308448
+2025-09-18 12:00:00  117229.58  117350.00  ...         1  20020.122659
+2025-09-18 13:00:00  117298.82  117307.50  ...         1  20001.631593
+2025-09-18 14:00:00  117190.48  117300.00  ...         1  19979.943760
+2025-09-18 15:00:00  117063.41  117279.00  ...         1  19990.404508
+
+[8759 rows x 67 columns]}
+2025-09-18 15:45:10,760 INFO: ЛУЧШИЕ ПАРАМЕТРЫ: (np.int64(7), np.float64(3.5), np.float64(0.4), np.float64(0.9), 1) \u2192 Капитал: 19990.40
+2025-09-18 15:45:10,765 INFO: Результаты сохранены в C:\Users\otto\Desktop\bot\trading_bybit_bot\optimization_results.csv
+2025-09-18 15:45:11,197 INFO: Оптимизированные параметры: (np.int64(7), np.float64(3.5), np.float64(0.4), np.float64(0.9), 1)
+2025-09-18 15:45:11,203 INFO: [2025-09-18 15:43:23.387806] Сохранены оптимизированные параметры: tp=7.00, sl=3.50, e2=0.40, e5=0.90, leverage=1.00
+2025-09-18 15:45:11,611 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:45:14,547 INFO: Loaded 0 tweets from C:\Users\otto\Desktop\bot\tweet_analyzer\sentiment_BTC.csv into C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:45:14,550 WARNING: No tweets loaded from CSV, sentiment will default to 0.0
+2025-09-18 15:45:14,551 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:45:14,551 INFO: Parser initialized for 5 accounts
+2025-09-18 15:45:14,787 INFO: [2025-09-18 15:45:14.787805] Instrument info: min_qty=0.001, qty_step=0.001, tick_size=0.1
+2025-09-18 15:45:14,988 INFO: [2025-09-18 15:45:14.988511] No active position found
+2025-09-18 15:45:14,988 INFO: [2025-09-18 15:45:14.988511] Waiting for next hourly candle at 2025-09-18 16:00:00, sleeping for 885.011489 seconds
+2025-09-18 15:45:15,075 INFO: Rule created with ID: f4e935d82b7e4055bbe9e60ebe2526df
+2025-09-18 15:45:15,625 INFO: Rule f4e935d82b7e4055bbe9e60ebe2526df activated successfully
+2025-09-18 15:45:15,626 INFO: Starting WebSocket with headers: [('x-api-key', 'new1_b254c56b257e4d128dabbbb6f0adafdc'), ('User-Agent', 'TradingBot/1.0')]
+2025-09-18 15:45:16,128 INFO: WebSocket connection established
+2025-09-18 15:45:16,128 INFO: WebSocket connection opened
+2025-09-18 15:45:16,128 INFO: Waiting for server to send data...
+2025-09-18 15:45:16,226 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,304 INFO: Tweet saved: id=1968670502152532121 (general), author=@Unknown, sentiment=0.0299
+2025-09-18 15:45:16,304 INFO: Tweet received and processed: id=1968670502152532121, author=@Unknown, total_count=1
+2025-09-18 15:45:16,304 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,367 INFO: Tweet saved: id=1968668938578862180 (general), author=@Unknown, sentiment=0.6986
+2025-09-18 15:45:16,367 INFO: Tweet received and processed: id=1968668938578862180, author=@Unknown, total_count=2
+2025-09-18 15:45:16,367 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,417 INFO: Tweet saved: id=1968667726169378847 (general), author=@Unknown, sentiment=0.0133
+2025-09-18 15:45:16,417 INFO: Tweet received and processed: id=1968667726169378847, author=@Unknown, total_count=3
+2025-09-18 15:45:16,417 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,488 INFO: Tweet saved: id=1968663176691462473 (general), author=@Unknown, sentiment=0.1943
+2025-09-18 15:45:16,488 INFO: Tweet received and processed: id=1968663176691462473, author=@Unknown, total_count=4
+2025-09-18 15:45:16,488 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,539 INFO: Tweet saved: id=1968661618876702842 (BTC), author=@Unknown, sentiment=0.2044
+2025-09-18 15:45:16,539 INFO: Tweet received and processed: id=1968661618876702842, author=@Unknown, total_count=5
+2025-09-18 15:45:16,539 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,642 INFO: Tweet saved: id=1968660884819005536 (general), author=@Unknown, sentiment=0.8975
+2025-09-18 15:45:16,644 INFO: Tweet received and processed: id=1968660884819005536, author=@Unknown, total_count=6
+2025-09-18 15:45:16,644 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,817 INFO: Tweet saved: id=1968659472236327254 (BTC,ETH,SOL), author=@Unknown, sentiment=0.1215
+2025-09-18 15:45:16,817 INFO: Tweet received and processed: id=1968659472236327254, author=@Unknown, total_count=7
+2025-09-18 15:45:16,818 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,888 INFO: Tweet saved: id=1968653851499585931 (BTC), author=@Unknown, sentiment=0.7403
+2025-09-18 15:45:16,888 INFO: Tweet received and processed: id=1968653851499585931, author=@Unknown, total_count=8
+2025-09-18 15:45:16,888 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:16,985 INFO: Tweet saved: id=1968649999215927522 (general), author=@Unknown, sentiment=0.0516
+2025-09-18 15:45:16,985 INFO: Tweet received and processed: id=1968649999215927522, author=@Unknown, total_count=9
+2025-09-18 15:45:16,985 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,054 INFO: Tweet saved: id=1968646358157381842 (BTC), author=@Unknown, sentiment=-0.1183
+2025-09-18 15:45:17,054 INFO: Tweet received and processed: id=1968646358157381842, author=@Unknown, total_count=10
+2025-09-18 15:45:17,054 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,115 INFO: Tweet saved: id=1968643750193779094 (BTC), author=@Unknown, sentiment=0.0304
+2025-09-18 15:45:17,115 INFO: Tweet received and processed: id=1968643750193779094, author=@Unknown, total_count=11
+2025-09-18 15:45:17,115 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,185 INFO: Tweet saved: id=1968638744228930028 (general), author=@Unknown, sentiment=0.0060
+2025-09-18 15:45:17,185 INFO: Tweet received and processed: id=1968638744228930028, author=@Unknown, total_count=12
+2025-09-18 15:45:17,185 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,244 INFO: Tweet saved: id=1968631235271385296 (general), author=@Unknown, sentiment=0.9236
+2025-09-18 15:45:17,245 INFO: Tweet received and processed: id=1968631235271385296, author=@Unknown, total_count=13
+2025-09-18 15:45:17,245 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,316 INFO: Tweet saved: id=1968623667492815117 (general), author=@Unknown, sentiment=0.2305
+2025-09-18 15:45:17,316 INFO: Tweet received and processed: id=1968623667492815117, author=@Unknown, total_count=14
+2025-09-18 15:45:17,317 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,379 INFO: Tweet saved: id=1968623644197765404 (BTC), author=@Unknown, sentiment=0.1137
+2025-09-18 15:45:17,380 INFO: Tweet received and processed: id=1968623644197765404, author=@Unknown, total_count=15
+2025-09-18 15:45:17,380 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,470 INFO: Tweet saved: id=1968619148231274566 (BTC), author=@Unknown, sentiment=0.0536
+2025-09-18 15:45:17,470 INFO: Tweet received and processed: id=1968619148231274566, author=@Unknown, total_count=16
+2025-09-18 15:45:17,470 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,525 INFO: Tweet saved: id=1968616136678723978 (general), author=@Unknown, sentiment=0.0003
+2025-09-18 15:45:17,525 INFO: Tweet received and processed: id=1968616136678723978, author=@Unknown, total_count=17
+2025-09-18 15:45:17,525 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,569 INFO: Tweet saved: id=1968608541230420239 (general), author=@Unknown, sentiment=-0.0012
+2025-09-18 15:45:17,569 INFO: Tweet received and processed: id=1968608541230420239, author=@Unknown, total_count=18
+2025-09-18 15:45:17,569 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,627 INFO: Tweet saved: id=1968608538265063494 (general), author=@Unknown, sentiment=0.0708
+2025-09-18 15:45:17,627 INFO: Tweet received and processed: id=1968608538265063494, author=@Unknown, total_count=19
+2025-09-18 15:45:17,627 ERROR: Invalid timestamp format: 
+2025-09-18 15:45:17,663 INFO: Tweet saved: id=1968603767823028436 (general), author=@Unknown, sentiment=0.0085
+2025-09-18 15:45:17,663 INFO: Tweet received and processed: id=1968603767823028436, author=@Unknown, total_count=20
+2025-09-18 15:48:10,212 INFO: Optimization loop cancelled
+2025-09-18 15:48:10,213 INFO: Trading loop cancelled
+2025-09-18 15:48:10,213 INFO: Reconnecting in 30 seconds...
+2025-09-18 15:48:10,214 INFO: Цикл оптимизации завершён
+2025-09-18 15:48:10,218 INFO: Торговый цикл завершён
+2025-09-18 15:48:19,630 INFO: Using device: cpu 
+2025-09-18 15:48:22,150 INFO: Начало месячной оптимизации
+2025-09-18 15:48:29,385 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 15:48:32,354 INFO: Unable to initialize backend 'tpu': UNIMPLEMENTED: LoadPjrtPlugin is not implemented on windows yet.
+2025-09-18 15:48:59,064 INFO: Starting stage 1 optimization with 540 combinations
+2025-09-18 15:48:59,064 INFO: Running grid optimization with 540 combinations
+2025-09-18 15:50:08,571 INFO: Лучший результат этапа 1: 17152.30, параметры: {'Take Profit %': 7, 'Stop Loss %': 3, 'Entry Threshold_0_2': 0.3, 'Entry Threshold_0_5': 0.9, 'Leverage': 1, 'Final Capital': np.float64(17152.296513925747), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 17:00:00   59508.50   59776.00  ...         0  10000.000000
+2024-09-18 18:00:00   59487.61   59757.06  ...         0  10000.000000
+2024-09-18 19:00:00   59429.19   59954.00  ...         0  10000.000000
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 11:00:00  117086.01  117413.04  ...         1  17167.658569
+2025-09-18 12:00:00  117229.58  117350.00  ...         1  17177.795475
+2025-09-18 13:00:00  117298.82  117307.50  ...         1  17161.929650
+2025-09-18 14:00:00  117190.48  117300.00  ...         1  17143.320915
+2025-09-18 15:00:00  117063.41  117279.00  ...         1  17152.296514
+
+[8759 rows x 67 columns]}
+2025-09-18 15:50:08,571 INFO: Starting stage 2 optimization with 81 combinations
+2025-09-18 15:50:08,573 INFO: Running grid optimization with 81 combinations
+2025-09-18 15:50:18,262 INFO: Лучший результат этапа 2: 19990.34, параметры: {'Take Profit %': np.int64(7), 'Stop Loss %': np.float64(3.5), 'Entry Threshold_0_2': np.float64(0.4), 'Entry Threshold_0_5': np.float64(0.9), 'Leverage': 1, 'Final Capital': np.float64(19990.340035427245), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 17:00:00   59508.50   59776.00  ...         0  10000.000000
+2024-09-18 18:00:00   59487.61   59757.06  ...         0  10000.000000
+2024-09-18 19:00:00   59429.19   59954.00  ...         0  10000.000000
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 11:00:00  117086.01  117413.04  ...         1  20008.243918
+2025-09-18 12:00:00  117229.58  117350.00  ...         1  20020.058091
+2025-09-18 13:00:00  117298.82  117307.50  ...         1  20001.567084
+2025-09-18 14:00:00  117190.48  117300.00  ...         1  19979.879321
+2025-09-18 15:00:00  117063.41  117279.00  ...         1  19990.340035
+
+[8759 rows x 67 columns]}
+2025-09-18 15:50:18,262 INFO: ЛУЧШИЕ ПАРАМЕТРЫ: (np.int64(7), np.float64(3.5), np.float64(0.4), np.float64(0.9), 1) \u2192 Капитал: 19990.34
+2025-09-18 15:50:18,267 INFO: Результаты сохранены в C:\Users\otto\Desktop\bot\trading_bybit_bot\optimization_results.csv
+2025-09-18 15:50:18,783 INFO: Оптимизированные параметры: (np.int64(7), np.float64(3.5), np.float64(0.4), np.float64(0.9), 1)
+2025-09-18 15:50:18,789 INFO: [2025-09-18 15:48:22.150142] Сохранены оптимизированные параметры: tp=7.00, sl=3.50, e2=0.40, e5=0.90, leverage=1.00
+2025-09-18 15:50:19,315 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:50:22,768 INFO: Loaded 0 tweets from C:\Users\otto\Desktop\bot\tweet_analyzer\sentiment_BTC.csv into C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:50:22,772 WARNING: No tweets loaded from CSV, sentiment will default to 0.0
+2025-09-18 15:50:22,773 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 15:50:22,773 INFO: Parser initialized for 5 accounts
+2025-09-18 15:50:23,012 INFO: [2025-09-18 15:50:23.012301] Instrument info: min_qty=0.001, qty_step=0.001, tick_size=0.1
+2025-09-18 15:50:23,403 INFO: Rule created with ID: a677465c8f7b49f8ac77f97aeca96998
+2025-09-18 15:50:23,554 INFO: [2025-09-18 15:50:23.554783] No active position found
+2025-09-18 15:50:23,554 INFO: [2025-09-18 15:50:23.554783] Waiting for next hourly candle at 2025-09-18 16:00:00, sleeping for 576.445217 seconds
+2025-09-18 15:50:24,020 INFO: Rule a677465c8f7b49f8ac77f97aeca96998 activated successfully
+2025-09-18 15:50:24,022 INFO: Starting WebSocket with headers: [('x-api-key', 'new1_b254c56b257e4d128dabbbb6f0adafdc'), ('User-Agent', 'TradingBot/1.0')]
+2025-09-18 15:50:24,505 INFO: WebSocket connection established
+2025-09-18 15:50:24,505 INFO: WebSocket connection opened
+2025-09-18 15:50:24,505 INFO: Waiting for server to send data...
+2025-09-18 15:52:04,569 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:04,645 INFO: Tweet saved: id=1968670502152532121 (general), author=@Unknown, sentiment=0.0299
+2025-09-18 15:52:04,645 INFO: Tweet received and processed: id=1968670502152532121, author=@Unknown, total_count=1
+2025-09-18 15:52:04,646 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:04,711 INFO: Tweet saved: id=1968668938578862180 (general), author=@Unknown, sentiment=0.6986
+2025-09-18 15:52:04,711 INFO: Tweet received and processed: id=1968668938578862180, author=@Unknown, total_count=2
+2025-09-18 15:52:04,711 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:04,765 INFO: Tweet saved: id=1968667726169378847 (general), author=@Unknown, sentiment=0.0133
+2025-09-18 15:52:04,765 INFO: Tweet received and processed: id=1968667726169378847, author=@Unknown, total_count=3
+2025-09-18 15:52:04,765 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:04,843 INFO: Tweet saved: id=1968663176691462473 (general), author=@Unknown, sentiment=0.1943
+2025-09-18 15:52:04,843 INFO: Tweet received and processed: id=1968663176691462473, author=@Unknown, total_count=4
+2025-09-18 15:52:04,843 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:04,897 INFO: Tweet saved: id=1968661618876702842 (BTC), author=@Unknown, sentiment=0.2044
+2025-09-18 15:52:04,897 INFO: Tweet received and processed: id=1968661618876702842, author=@Unknown, total_count=5
+2025-09-18 15:52:04,897 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:04,965 INFO: Tweet saved: id=1968660884819005536 (general), author=@Unknown, sentiment=0.8975
+2025-09-18 15:52:04,965 INFO: Tweet received and processed: id=1968660884819005536, author=@Unknown, total_count=6
+2025-09-18 15:52:04,965 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,056 INFO: Tweet saved: id=1968659472236327254 (BTC,ETH,SOL), author=@Unknown, sentiment=0.1215
+2025-09-18 15:52:05,056 INFO: Tweet received and processed: id=1968659472236327254, author=@Unknown, total_count=7
+2025-09-18 15:52:05,056 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,121 INFO: Tweet saved: id=1968653851499585931 (BTC), author=@Unknown, sentiment=0.7403
+2025-09-18 15:52:05,122 INFO: Tweet received and processed: id=1968653851499585931, author=@Unknown, total_count=8
+2025-09-18 15:52:05,122 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,216 INFO: Tweet saved: id=1968649999215927522 (general), author=@Unknown, sentiment=0.0516
+2025-09-18 15:52:05,218 INFO: Tweet received and processed: id=1968649999215927522, author=@Unknown, total_count=9
+2025-09-18 15:52:05,218 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,290 INFO: Tweet saved: id=1968646358157381842 (BTC), author=@Unknown, sentiment=-0.1183
+2025-09-18 15:52:05,290 INFO: Tweet received and processed: id=1968646358157381842, author=@Unknown, total_count=10
+2025-09-18 15:52:05,290 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,473 INFO: Tweet saved: id=1968643750193779094 (BTC), author=@Unknown, sentiment=0.0304
+2025-09-18 15:52:05,473 INFO: Tweet received and processed: id=1968643750193779094, author=@Unknown, total_count=11
+2025-09-18 15:52:05,473 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,533 INFO: Tweet saved: id=1968638744228930028 (general), author=@Unknown, sentiment=0.0060
+2025-09-18 15:52:05,533 INFO: Tweet received and processed: id=1968638744228930028, author=@Unknown, total_count=12
+2025-09-18 15:52:05,533 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,602 INFO: Tweet saved: id=1968631235271385296 (general), author=@Unknown, sentiment=0.9236
+2025-09-18 15:52:05,602 INFO: Tweet received and processed: id=1968631235271385296, author=@Unknown, total_count=13
+2025-09-18 15:52:05,602 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,683 INFO: Tweet saved: id=1968623667492815117 (general), author=@Unknown, sentiment=0.2305
+2025-09-18 15:52:05,683 INFO: Tweet received and processed: id=1968623667492815117, author=@Unknown, total_count=14
+2025-09-18 15:52:05,684 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,742 INFO: Tweet saved: id=1968623644197765404 (BTC), author=@Unknown, sentiment=0.1137
+2025-09-18 15:52:05,742 INFO: Tweet received and processed: id=1968623644197765404, author=@Unknown, total_count=15
+2025-09-18 15:52:05,743 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,838 INFO: Tweet saved: id=1968619148231274566 (BTC), author=@Unknown, sentiment=0.0536
+2025-09-18 15:52:05,838 INFO: Tweet received and processed: id=1968619148231274566, author=@Unknown, total_count=16
+2025-09-18 15:52:05,838 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,900 INFO: Tweet saved: id=1968616136678723978 (general), author=@Unknown, sentiment=0.0003
+2025-09-18 15:52:05,900 INFO: Tweet received and processed: id=1968616136678723978, author=@Unknown, total_count=17
+2025-09-18 15:52:05,900 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:05,949 INFO: Tweet saved: id=1968608541230420239 (general), author=@Unknown, sentiment=-0.0012
+2025-09-18 15:52:05,949 INFO: Tweet received and processed: id=1968608541230420239, author=@Unknown, total_count=18
+2025-09-18 15:52:05,949 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:06,024 INFO: Tweet saved: id=1968608538265063494 (general), author=@Unknown, sentiment=0.0708
+2025-09-18 15:52:06,024 INFO: Tweet received and processed: id=1968608538265063494, author=@Unknown, total_count=19
+2025-09-18 15:52:06,024 ERROR: Invalid timestamp format: 
+2025-09-18 15:52:06,074 INFO: Tweet saved: id=1968603767823028436 (general), author=@Unknown, sentiment=0.0085
+2025-09-18 15:52:06,074 INFO: Tweet received and processed: id=1968603767823028436, author=@Unknown, total_count=20
+2025-09-18 15:53:07,670 INFO: Optimization loop cancelled
+2025-09-18 15:53:07,670 INFO: Trading loop cancelled
+2025-09-18 15:53:07,670 INFO: Reconnecting in 30 seconds...
+2025-09-18 15:53:07,672 INFO: Цикл оптимизации завершён
+2025-09-18 15:53:07,675 INFO: Торговый цикл завершён
+2025-09-18 15:53:19,547 INFO: Using device: cpu 
+2025-09-18 15:53:22,507 INFO: Начало месячной оптимизации
+2025-09-18 15:55:20,077 INFO: Using device: cpu 
+2025-09-18 15:55:22,829 INFO: Начало месячной оптимизации
+2025-09-18 15:55:30,174 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 15:55:33,097 INFO: Unable to initialize backend 'tpu': UNIMPLEMENTED: LoadPjrtPlugin is not implemented on windows yet.
+2025-09-18 15:56:00,082 INFO: Starting stage 1 optimization with 540 combinations
+2025-09-18 15:56:00,082 INFO: Running grid optimization with 540 combinations
+2025-09-18 16:06:55,022 INFO: Using device: cpu 
+2025-09-18 16:06:57,824 INFO: Начало месячной оптимизации
+2025-09-18 16:07:05,622 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 16:07:07,669 ERROR: Оптимизация не удалась: 'SUPERT_10_3.0'
+Traceback (most recent call last):
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'SUPERT_10_3.0'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_bot.py", line 225, in optimization_loop
+    historical_df = calculate_indicators(historical_df, settings)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\Desktop\bot\indicators\smart_signals_index4.py", line 315, in calculate_indicators
+    df['Supertrend'] = supertrend[f'SUPERT_{settings["Supertrend_length"]}_{settings["Supertrend_multiplier"]}.0']
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'SUPERT_10_3.0'
+2025-09-18 16:07:08,031 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 16:07:11,368 INFO: Loaded 0 tweets from C:\Users\otto\Desktop\bot\tweet_analyzer\sentiment_BTC.csv into C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 16:07:11,370 WARNING: No tweets loaded from CSV, sentiment will default to 0.0
+2025-09-18 16:07:11,371 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 16:07:11,371 INFO: Parser initialized for 5 accounts
+2025-09-18 16:07:11,648 INFO: [2025-09-18 16:07:11.647497] Instrument info: min_qty=0.001, qty_step=0.001, tick_size=0.1
+2025-09-18 16:07:11,852 INFO: [2025-09-18 16:07:11.852548] No active position found
+2025-09-18 16:07:11,852 INFO: [2025-09-18 16:07:11.852548] Waiting for next hourly candle at 2025-09-18 17:00:00, sleeping for 3168.147452 seconds
+2025-09-18 16:07:12,013 INFO: Rule created with ID: ce04d48f931d47e6841d0d139f175a10
+2025-09-18 16:07:12,613 INFO: Rule ce04d48f931d47e6841d0d139f175a10 activated successfully
+2025-09-18 16:07:12,614 INFO: Starting WebSocket with headers: [('x-api-key', 'new1_b254c56b257e4d128dabbbb6f0adafdc'), ('User-Agent', 'TradingBot/1.0')]
+2025-09-18 16:07:13,146 INFO: WebSocket connection established
+2025-09-18 16:07:13,146 INFO: WebSocket connection opened
+2025-09-18 16:07:13,147 INFO: Waiting for server to send data...
+2025-09-18 16:07:13,263 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,353 INFO: Tweet saved: id=1968677010370085256 (general), author=@Unknown, sentiment=0.7901
+2025-09-18 16:07:13,353 INFO: Tweet received and processed: id=1968677010370085256, author=@Unknown, total_count=1
+2025-09-18 16:07:13,354 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,411 INFO: Tweet saved: id=1968676553887191339 (SOL), author=@Unknown, sentiment=0.5197
+2025-09-18 16:07:13,411 INFO: Tweet received and processed: id=1968676553887191339, author=@Unknown, total_count=2
+2025-09-18 16:07:13,411 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,469 INFO: Tweet saved: id=1968670502152532121 (general), author=@Unknown, sentiment=0.0299
+2025-09-18 16:07:13,469 INFO: Tweet received and processed: id=1968670502152532121, author=@Unknown, total_count=3
+2025-09-18 16:07:13,470 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,552 INFO: Tweet saved: id=1968668938578862180 (general), author=@Unknown, sentiment=0.6986
+2025-09-18 16:07:13,552 INFO: Tweet received and processed: id=1968668938578862180, author=@Unknown, total_count=4
+2025-09-18 16:07:13,552 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,598 INFO: Tweet saved: id=1968667726169378847 (general), author=@Unknown, sentiment=0.0133
+2025-09-18 16:07:13,598 INFO: Tweet received and processed: id=1968667726169378847, author=@Unknown, total_count=5
+2025-09-18 16:07:13,598 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,675 INFO: Tweet saved: id=1968663176691462473 (general), author=@Unknown, sentiment=0.1943
+2025-09-18 16:07:13,675 INFO: Tweet received and processed: id=1968663176691462473, author=@Unknown, total_count=6
+2025-09-18 16:07:13,676 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,724 INFO: Tweet saved: id=1968661618876702842 (BTC), author=@Unknown, sentiment=0.2044
+2025-09-18 16:07:13,724 INFO: Tweet received and processed: id=1968661618876702842, author=@Unknown, total_count=7
+2025-09-18 16:07:13,724 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,795 INFO: Tweet saved: id=1968660884819005536 (general), author=@Unknown, sentiment=0.8975
+2025-09-18 16:07:13,795 INFO: Tweet received and processed: id=1968660884819005536, author=@Unknown, total_count=8
+2025-09-18 16:07:13,795 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,879 INFO: Tweet saved: id=1968659472236327254 (BTC,ETH,SOL), author=@Unknown, sentiment=0.1215
+2025-09-18 16:07:13,879 INFO: Tweet received and processed: id=1968659472236327254, author=@Unknown, total_count=9
+2025-09-18 16:07:13,880 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:13,938 INFO: Tweet saved: id=1968653851499585931 (BTC), author=@Unknown, sentiment=0.7403
+2025-09-18 16:07:13,938 INFO: Tweet received and processed: id=1968653851499585931, author=@Unknown, total_count=10
+2025-09-18 16:07:13,938 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,013 INFO: Tweet saved: id=1968649999215927522 (general), author=@Unknown, sentiment=0.0516
+2025-09-18 16:07:14,013 INFO: Tweet received and processed: id=1968649999215927522, author=@Unknown, total_count=11
+2025-09-18 16:07:14,013 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,072 INFO: Tweet saved: id=1968646358157381842 (BTC), author=@Unknown, sentiment=-0.1183
+2025-09-18 16:07:14,073 INFO: Tweet received and processed: id=1968646358157381842, author=@Unknown, total_count=12
+2025-09-18 16:07:14,073 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,131 INFO: Tweet saved: id=1968643750193779094 (BTC), author=@Unknown, sentiment=0.0304
+2025-09-18 16:07:14,131 INFO: Tweet received and processed: id=1968643750193779094, author=@Unknown, total_count=13
+2025-09-18 16:07:14,131 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,186 INFO: Tweet saved: id=1968638744228930028 (general), author=@Unknown, sentiment=0.0060
+2025-09-18 16:07:14,186 INFO: Tweet received and processed: id=1968638744228930028, author=@Unknown, total_count=14
+2025-09-18 16:07:14,187 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,250 INFO: Tweet saved: id=1968631235271385296 (general), author=@Unknown, sentiment=0.9236
+2025-09-18 16:07:14,250 INFO: Tweet received and processed: id=1968631235271385296, author=@Unknown, total_count=15
+2025-09-18 16:07:14,250 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,331 INFO: Tweet saved: id=1968623667492815117 (general), author=@Unknown, sentiment=0.2305
+2025-09-18 16:07:14,331 INFO: Tweet received and processed: id=1968623667492815117, author=@Unknown, total_count=16
+2025-09-18 16:07:14,331 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,385 INFO: Tweet saved: id=1968623644197765404 (BTC), author=@Unknown, sentiment=0.1137
+2025-09-18 16:07:14,385 INFO: Tweet received and processed: id=1968623644197765404, author=@Unknown, total_count=17
+2025-09-18 16:07:14,385 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,469 INFO: Tweet saved: id=1968619148231274566 (BTC), author=@Unknown, sentiment=0.0536
+2025-09-18 16:07:14,469 INFO: Tweet received and processed: id=1968619148231274566, author=@Unknown, total_count=18
+2025-09-18 16:07:14,469 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,523 INFO: Tweet saved: id=1968616136678723978 (general), author=@Unknown, sentiment=0.0003
+2025-09-18 16:07:14,523 INFO: Tweet received and processed: id=1968616136678723978, author=@Unknown, total_count=19
+2025-09-18 16:07:14,523 ERROR: Invalid timestamp format: 
+2025-09-18 16:07:14,576 INFO: Tweet saved: id=1968608541230420239 (general), author=@Unknown, sentiment=-0.0012
+2025-09-18 16:07:14,576 INFO: Tweet received and processed: id=1968608541230420239, author=@Unknown, total_count=20
+2025-09-18 16:18:36,155 ERROR: Invalid timestamp format: 
+2025-09-18 16:18:36,210 INFO: Tweet saved: id=1968680899794653483 (BTC), author=@Unknown, sentiment=0.0145
+2025-09-18 16:18:36,210 INFO: Tweet received and processed: id=1968680899794653483, author=@Unknown, total_count=21
+2025-09-18 16:18:44,490 ERROR: Invalid timestamp format: 
+2025-09-18 16:18:44,556 INFO: Tweet saved: id=1968680899794653483 (BTC), author=@Unknown, sentiment=0.0145
+2025-09-18 16:18:44,556 INFO: Tweet received and processed: id=1968680899794653483, author=@Unknown, total_count=22
+2025-09-18 16:18:53,067 ERROR: Invalid timestamp format: 
+2025-09-18 16:18:53,142 INFO: Tweet saved: id=1968680899794653483 (BTC), author=@Unknown, sentiment=0.0145
+2025-09-18 16:18:53,143 INFO: Tweet received and processed: id=1968680899794653483, author=@Unknown, total_count=23
+2025-09-18 16:19:06,594 ERROR: Invalid timestamp format: 
+2025-09-18 16:19:06,675 INFO: Tweet saved: id=1968680899794653483 (BTC), author=@Unknown, sentiment=0.0145
+2025-09-18 16:19:06,676 INFO: Tweet received and processed: id=1968680899794653483, author=@Unknown, total_count=24
+2025-09-18 16:30:47,286 ERROR: Invalid timestamp format: 
+2025-09-18 16:30:47,388 INFO: Tweet saved: id=1968684039230910607 (SOL), author=@Unknown, sentiment=0.1643
+2025-09-18 16:30:47,388 INFO: Tweet received and processed: id=1968684039230910607, author=@Unknown, total_count=25
+2025-09-18 16:31:02,500 ERROR: Invalid timestamp format: 
+2025-09-18 16:31:02,598 INFO: Tweet saved: id=1968684039230910607 (SOL), author=@Unknown, sentiment=0.1643
+2025-09-18 16:31:02,598 INFO: Tweet received and processed: id=1968684039230910607, author=@Unknown, total_count=26
+2025-09-18 16:31:56,154 ERROR: Invalid timestamp format: 
+2025-09-18 16:31:56,273 INFO: Tweet saved: id=1968684039230910607 (SOL), author=@Unknown, sentiment=0.1643
+2025-09-18 16:31:56,273 INFO: Tweet received and processed: id=1968684039230910607, author=@Unknown, total_count=27
+2025-09-18 16:32:04,493 ERROR: Invalid timestamp format: 
+2025-09-18 16:32:04,593 INFO: Tweet saved: id=1968684039230910607 (SOL), author=@Unknown, sentiment=0.1643
+2025-09-18 16:32:04,594 INFO: Tweet received and processed: id=1968684039230910607, author=@Unknown, total_count=28
+2025-09-18 16:39:56,163 INFO: Optimization loop cancelled
+2025-09-18 16:39:56,164 INFO: Trading loop cancelled
+2025-09-18 16:39:56,164 INFO: Reconnecting in 30 seconds...
+2025-09-18 16:39:56,165 INFO: Цикл оптимизации завершён
+2025-09-18 16:39:56,167 INFO: Торговый цикл завершён
+2025-09-18 17:07:59,571 INFO: Using device: cpu 
+2025-09-18 17:08:03,270 INFO: Начало месячной оптимизации
+2025-09-18 17:08:14,034 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 17:08:17,307 ERROR: Оптимизация не удалась: 'SUPERT_10_3.0'
+Traceback (most recent call last):
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'SUPERT_10_3.0'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_bot.py", line 225, in optimization_loop
+    historical_df = calculate_indicators(historical_df, settings)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\Desktop\bot\indicators\smart_signals_index4.py", line 315, in calculate_indicators
+    df['Supertrend'] = supertrend[f'SUPERT_{settings["Supertrend_length"]}_{settings["Supertrend_multiplier"]}.0']
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'SUPERT_10_3.0'
+2025-09-18 17:08:17,844 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 17:08:22,931 INFO: Loaded 0 tweets from C:\Users\otto\Desktop\bot\tweet_analyzer\sentiment_BTC.csv into C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 17:08:22,934 WARNING: No tweets loaded from CSV, sentiment will default to 0.0
+2025-09-18 17:08:22,936 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 17:08:22,937 INFO: Parser initialized for 5 accounts
+2025-09-18 17:08:23,201 INFO: [2025-09-18 17:08:23.201105] Instrument info: min_qty=0.001, qty_step=0.001, tick_size=0.1
+2025-09-18 17:08:23,397 INFO: [2025-09-18 17:08:23.397796] No active position found
+2025-09-18 17:08:23,397 INFO: [2025-09-18 17:08:23.397796] Waiting for next hourly candle at 2025-09-18 18:00:00, sleeping for 3096.602204 seconds
+2025-09-18 17:08:23,814 INFO: Rule created with ID: ca20cca2092a42ebb0cf1e1a74543662
+2025-09-18 17:08:24,648 INFO: Rule ca20cca2092a42ebb0cf1e1a74543662 activated successfully
+2025-09-18 17:08:24,651 INFO: Starting WebSocket with headers: [('x-api-key', 'new1_b254c56b257e4d128dabbbb6f0adafdc'), ('User-Agent', 'TradingBot/1.0')]
+2025-09-18 17:08:25,188 INFO: WebSocket connection established
+2025-09-18 17:08:25,188 INFO: WebSocket connection opened
+2025-09-18 17:08:25,188 INFO: Waiting for server to send data...
+2025-09-18 17:08:25,296 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:25,390 INFO: Tweet saved: id=1968691633743863899 (general), author=@Unknown, sentiment=0.1893
+2025-09-18 17:08:25,390 INFO: Tweet received and processed: id=1968691633743863899, author=@Unknown, total_count=1
+2025-09-18 17:08:25,391 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:25,499 INFO: Tweet saved: id=1968686818469040405 (SOL), author=@Unknown, sentiment=0.1395
+2025-09-18 17:08:25,499 INFO: Tweet received and processed: id=1968686818469040405, author=@Unknown, total_count=2
+2025-09-18 17:08:25,501 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:25,582 INFO: Tweet saved: id=1968684039230910607 (SOL), author=@Unknown, sentiment=0.1643
+2025-09-18 17:08:25,582 INFO: Tweet received and processed: id=1968684039230910607, author=@Unknown, total_count=3
+2025-09-18 17:08:25,582 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:25,657 INFO: Tweet saved: id=1968680899794653483 (BTC), author=@Unknown, sentiment=0.0145
+2025-09-18 17:08:25,657 INFO: Tweet received and processed: id=1968680899794653483, author=@Unknown, total_count=4
+2025-09-18 17:08:25,657 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:25,760 INFO: Tweet saved: id=1968677010370085256 (general), author=@Unknown, sentiment=0.7901
+2025-09-18 17:08:25,760 INFO: Tweet received and processed: id=1968677010370085256, author=@Unknown, total_count=5
+2025-09-18 17:08:25,761 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:25,841 INFO: Tweet saved: id=1968676553887191339 (SOL), author=@Unknown, sentiment=0.5197
+2025-09-18 17:08:25,842 INFO: Tweet received and processed: id=1968676553887191339, author=@Unknown, total_count=6
+2025-09-18 17:08:25,842 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:25,919 INFO: Tweet saved: id=1968670502152532121 (general), author=@Unknown, sentiment=0.0299
+2025-09-18 17:08:25,919 INFO: Tweet received and processed: id=1968670502152532121, author=@Unknown, total_count=7
+2025-09-18 17:08:25,919 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,006 INFO: Tweet saved: id=1968668938578862180 (general), author=@Unknown, sentiment=0.6986
+2025-09-18 17:08:26,006 INFO: Tweet received and processed: id=1968668938578862180, author=@Unknown, total_count=8
+2025-09-18 17:08:26,006 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,074 INFO: Tweet saved: id=1968667726169378847 (general), author=@Unknown, sentiment=0.0133
+2025-09-18 17:08:26,075 INFO: Tweet received and processed: id=1968667726169378847, author=@Unknown, total_count=9
+2025-09-18 17:08:26,075 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,178 INFO: Tweet saved: id=1968663176691462473 (general), author=@Unknown, sentiment=0.1943
+2025-09-18 17:08:26,178 INFO: Tweet received and processed: id=1968663176691462473, author=@Unknown, total_count=10
+2025-09-18 17:08:26,178 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,246 INFO: Tweet saved: id=1968661618876702842 (BTC), author=@Unknown, sentiment=0.2044
+2025-09-18 17:08:26,247 INFO: Tweet received and processed: id=1968661618876702842, author=@Unknown, total_count=11
+2025-09-18 17:08:26,247 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,340 INFO: Tweet saved: id=1968660884819005536 (general), author=@Unknown, sentiment=0.8975
+2025-09-18 17:08:26,340 INFO: Tweet received and processed: id=1968660884819005536, author=@Unknown, total_count=12
+2025-09-18 17:08:26,340 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,457 INFO: Tweet saved: id=1968659472236327254 (BTC,ETH,SOL), author=@Unknown, sentiment=0.1215
+2025-09-18 17:08:26,457 INFO: Tweet received and processed: id=1968659472236327254, author=@Unknown, total_count=13
+2025-09-18 17:08:26,457 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,537 INFO: Tweet saved: id=1968653851499585931 (BTC), author=@Unknown, sentiment=0.7403
+2025-09-18 17:08:26,537 INFO: Tweet received and processed: id=1968653851499585931, author=@Unknown, total_count=14
+2025-09-18 17:08:26,538 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,643 INFO: Tweet saved: id=1968649999215927522 (general), author=@Unknown, sentiment=0.0516
+2025-09-18 17:08:26,643 INFO: Tweet received and processed: id=1968649999215927522, author=@Unknown, total_count=15
+2025-09-18 17:08:26,643 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,723 INFO: Tweet saved: id=1968646358157381842 (BTC), author=@Unknown, sentiment=-0.1183
+2025-09-18 17:08:26,723 INFO: Tweet received and processed: id=1968646358157381842, author=@Unknown, total_count=16
+2025-09-18 17:08:26,723 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,796 INFO: Tweet saved: id=1968643750193779094 (BTC), author=@Unknown, sentiment=0.0304
+2025-09-18 17:08:26,796 INFO: Tweet received and processed: id=1968643750193779094, author=@Unknown, total_count=17
+2025-09-18 17:08:26,796 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,871 INFO: Tweet saved: id=1968638744228930028 (general), author=@Unknown, sentiment=0.0060
+2025-09-18 17:08:26,871 INFO: Tweet received and processed: id=1968638744228930028, author=@Unknown, total_count=18
+2025-09-18 17:08:26,871 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:26,959 INFO: Tweet saved: id=1968631235271385296 (general), author=@Unknown, sentiment=0.9236
+2025-09-18 17:08:26,959 INFO: Tweet received and processed: id=1968631235271385296, author=@Unknown, total_count=19
+2025-09-18 17:08:26,959 ERROR: Invalid timestamp format: 
+2025-09-18 17:08:27,066 INFO: Tweet saved: id=1968623667492815117 (general), author=@Unknown, sentiment=0.2305
+2025-09-18 17:08:27,066 INFO: Tweet received and processed: id=1968623667492815117, author=@Unknown, total_count=20
+2025-09-18 17:08:33,442 INFO: Optimization loop cancelled
+2025-09-18 17:08:33,442 INFO: Trading loop cancelled
+2025-09-18 17:08:33,442 INFO: Reconnecting in 30 seconds...
+2025-09-18 17:08:33,443 INFO: Цикл оптимизации завершён
+2025-09-18 17:08:33,445 INFO: Торговый цикл завершён
+2025-09-18 17:08:42,616 INFO: Using device: cpu 
+2025-09-18 17:08:45,184 INFO: Начало месячной оптимизации
+2025-09-18 17:08:55,258 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 17:08:58,799 ERROR: Оптимизация не удалась: 'SUPERT_10_3.0'
+Traceback (most recent call last):
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7096, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'SUPERT_10_3.0'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_bot.py", line 221, in optimization_loop
+    logger.debug("Вычисление индикаторов...")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\Desktop\bot\indicators\smart_signals_index4.py", line 315, in calculate_indicators
+    df['Supertrend'] = supertrend[f'SUPERT_{settings["Supertrend_length"]}_{settings["Supertrend_multiplier"]}.0']
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\frame.py", line 4107, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\otto\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\core\indexes\base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 'SUPERT_10_3.0'
+2025-09-18 17:08:59,515 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 17:09:04,727 INFO: Loaded 0 tweets from C:\Users\otto\Desktop\bot\tweet_analyzer\sentiment_BTC.csv into C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 17:09:04,728 WARNING: No tweets loaded from CSV, sentiment will default to 0.0
+2025-09-18 17:09:04,731 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 17:09:04,731 INFO: Parser initialized for 5 accounts
+2025-09-18 17:09:04,970 INFO: [2025-09-18 17:09:04.969630] Instrument info: min_qty=0.001, qty_step=0.001, tick_size=0.1
+2025-09-18 17:09:05,169 INFO: [2025-09-18 17:09:05.169921] No active position found
+2025-09-18 17:09:05,169 INFO: [2025-09-18 17:09:05.169921] Waiting for next hourly candle at 2025-09-18 18:00:00, sleeping for 3054.830079 seconds
+2025-09-18 17:09:05,607 INFO: Rule created with ID: 44fc7495211d4cecb1c1f468128f3d9f
+2025-09-18 17:09:06,433 INFO: Rule 44fc7495211d4cecb1c1f468128f3d9f activated successfully
+2025-09-18 17:09:06,435 INFO: Starting WebSocket with headers: [('x-api-key', 'new1_b254c56b257e4d128dabbbb6f0adafdc'), ('User-Agent', 'TradingBot/1.0')]
+2025-09-18 17:09:06,950 INFO: WebSocket connection established
+2025-09-18 17:09:06,951 INFO: WebSocket connection opened
+2025-09-18 17:09:06,951 INFO: Waiting for server to send data...
+2025-09-18 17:09:07,049 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,163 INFO: Tweet saved: id=1968691633743863899 (general), author=@Unknown, sentiment=0.1893
+2025-09-18 17:09:07,163 INFO: Tweet received and processed: id=1968691633743863899, author=@Unknown, total_count=1
+2025-09-18 17:09:07,163 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,275 INFO: Tweet saved: id=1968686818469040405 (SOL), author=@Unknown, sentiment=0.1395
+2025-09-18 17:09:07,276 INFO: Tweet received and processed: id=1968686818469040405, author=@Unknown, total_count=2
+2025-09-18 17:09:07,276 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,359 INFO: Tweet saved: id=1968684039230910607 (SOL), author=@Unknown, sentiment=0.1643
+2025-09-18 17:09:07,359 INFO: Tweet received and processed: id=1968684039230910607, author=@Unknown, total_count=3
+2025-09-18 17:09:07,360 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,435 INFO: Tweet saved: id=1968680899794653483 (BTC), author=@Unknown, sentiment=0.0145
+2025-09-18 17:09:07,435 INFO: Tweet received and processed: id=1968680899794653483, author=@Unknown, total_count=4
+2025-09-18 17:09:07,435 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,544 INFO: Tweet saved: id=1968677010370085256 (general), author=@Unknown, sentiment=0.7901
+2025-09-18 17:09:07,545 INFO: Tweet received and processed: id=1968677010370085256, author=@Unknown, total_count=5
+2025-09-18 17:09:07,545 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,623 INFO: Tweet saved: id=1968676553887191339 (SOL), author=@Unknown, sentiment=0.5197
+2025-09-18 17:09:07,623 INFO: Tweet received and processed: id=1968676553887191339, author=@Unknown, total_count=6
+2025-09-18 17:09:07,624 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,703 INFO: Tweet saved: id=1968670502152532121 (general), author=@Unknown, sentiment=0.0299
+2025-09-18 17:09:07,703 INFO: Tweet received and processed: id=1968670502152532121, author=@Unknown, total_count=7
+2025-09-18 17:09:07,703 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,790 INFO: Tweet saved: id=1968668938578862180 (general), author=@Unknown, sentiment=0.6986
+2025-09-18 17:09:07,790 INFO: Tweet received and processed: id=1968668938578862180, author=@Unknown, total_count=8
+2025-09-18 17:09:07,790 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,861 INFO: Tweet saved: id=1968667726169378847 (general), author=@Unknown, sentiment=0.0133
+2025-09-18 17:09:07,861 INFO: Tweet received and processed: id=1968667726169378847, author=@Unknown, total_count=9
+2025-09-18 17:09:07,862 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:07,972 INFO: Tweet saved: id=1968663176691462473 (general), author=@Unknown, sentiment=0.1943
+2025-09-18 17:09:07,972 INFO: Tweet received and processed: id=1968663176691462473, author=@Unknown, total_count=10
+2025-09-18 17:09:07,973 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,043 INFO: Tweet saved: id=1968661618876702842 (BTC), author=@Unknown, sentiment=0.2044
+2025-09-18 17:09:08,043 INFO: Tweet received and processed: id=1968661618876702842, author=@Unknown, total_count=11
+2025-09-18 17:09:08,043 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,133 INFO: Tweet saved: id=1968660884819005536 (general), author=@Unknown, sentiment=0.8975
+2025-09-18 17:09:08,133 INFO: Tweet received and processed: id=1968660884819005536, author=@Unknown, total_count=12
+2025-09-18 17:09:08,133 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,252 INFO: Tweet saved: id=1968659472236327254 (BTC,ETH,SOL), author=@Unknown, sentiment=0.1215
+2025-09-18 17:09:08,252 INFO: Tweet received and processed: id=1968659472236327254, author=@Unknown, total_count=13
+2025-09-18 17:09:08,253 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,335 INFO: Tweet saved: id=1968653851499585931 (BTC), author=@Unknown, sentiment=0.7403
+2025-09-18 17:09:08,335 INFO: Tweet received and processed: id=1968653851499585931, author=@Unknown, total_count=14
+2025-09-18 17:09:08,335 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,448 INFO: Tweet saved: id=1968649999215927522 (general), author=@Unknown, sentiment=0.0516
+2025-09-18 17:09:08,448 INFO: Tweet received and processed: id=1968649999215927522, author=@Unknown, total_count=15
+2025-09-18 17:09:08,449 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,535 INFO: Tweet saved: id=1968646358157381842 (BTC), author=@Unknown, sentiment=-0.1183
+2025-09-18 17:09:08,535 INFO: Tweet received and processed: id=1968646358157381842, author=@Unknown, total_count=16
+2025-09-18 17:09:08,536 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,611 INFO: Tweet saved: id=1968643750193779094 (BTC), author=@Unknown, sentiment=0.0304
+2025-09-18 17:09:08,612 INFO: Tweet received and processed: id=1968643750193779094, author=@Unknown, total_count=17
+2025-09-18 17:09:08,612 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,689 INFO: Tweet saved: id=1968638744228930028 (general), author=@Unknown, sentiment=0.0060
+2025-09-18 17:09:08,689 INFO: Tweet received and processed: id=1968638744228930028, author=@Unknown, total_count=18
+2025-09-18 17:09:08,689 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,776 INFO: Tweet saved: id=1968631235271385296 (general), author=@Unknown, sentiment=0.9236
+2025-09-18 17:09:08,776 INFO: Tweet received and processed: id=1968631235271385296, author=@Unknown, total_count=19
+2025-09-18 17:09:08,776 ERROR: Invalid timestamp format: 
+2025-09-18 17:09:08,877 INFO: Tweet saved: id=1968623667492815117 (general), author=@Unknown, sentiment=0.2305
+2025-09-18 17:09:08,878 INFO: Tweet received and processed: id=1968623667492815117, author=@Unknown, total_count=20
+2025-09-18 17:15:05,049 ERROR: Invalid timestamp format: 
+2025-09-18 17:15:05,125 INFO: Tweet saved: id=1968695029930541198 (general), author=@Unknown, sentiment=0.0474
+2025-09-18 17:15:05,125 INFO: Tweet received and processed: id=1968695029930541198, author=@Unknown, total_count=21
+2025-09-18 17:15:16,497 ERROR: Invalid timestamp format: 
+2025-09-18 17:15:16,561 INFO: Tweet saved: id=1968695029930541198 (general), author=@Unknown, sentiment=0.0474
+2025-09-18 17:15:16,561 INFO: Tweet received and processed: id=1968695029930541198, author=@Unknown, total_count=22
+2025-09-18 17:15:24,550 ERROR: Invalid timestamp format: 
+2025-09-18 17:15:24,646 INFO: Tweet saved: id=1968695029930541198 (general), author=@Unknown, sentiment=0.0474
+2025-09-18 17:15:24,646 INFO: Tweet received and processed: id=1968695029930541198, author=@Unknown, total_count=23
+2025-09-18 17:15:33,384 ERROR: Invalid timestamp format: 
+2025-09-18 17:15:33,450 INFO: Tweet saved: id=1968695029930541198 (general), author=@Unknown, sentiment=0.0474
+2025-09-18 17:15:33,450 INFO: Tweet received and processed: id=1968695029930541198, author=@Unknown, total_count=24
+2025-09-18 17:15:46,834 ERROR: Invalid timestamp format: 
+2025-09-18 17:15:46,921 INFO: Tweet saved: id=1968695029930541198 (general), author=@Unknown, sentiment=0.0474
+2025-09-18 17:15:46,921 INFO: Tweet received and processed: id=1968695029930541198, author=@Unknown, total_count=25
+2025-09-18 17:15:46,921 ERROR: Invalid timestamp format: 
+2025-09-18 17:15:46,988 INFO: Tweet saved: id=1968695029930541198 (general), author=@Unknown, sentiment=0.0474
+2025-09-18 17:15:46,988 INFO: Tweet received and processed: id=1968695029930541198, author=@Unknown, total_count=26
+2025-09-18 17:31:03,001 ERROR: Invalid timestamp format: 
+2025-09-18 17:31:03,139 INFO: Tweet saved: id=1968699154516807734 (BTC), author=@Unknown, sentiment=-0.0644
+2025-09-18 17:31:03,139 INFO: Tweet received and processed: id=1968699154516807734, author=@Unknown, total_count=27
+2025-09-18 17:31:45,123 ERROR: Invalid timestamp format: 
+2025-09-18 17:31:45,209 INFO: Tweet saved: id=1968699465444811044 (general), author=@Unknown, sentiment=0.0246
+2025-09-18 17:31:45,211 INFO: Tweet received and processed: id=1968699465444811044, author=@Unknown, total_count=28
+2025-09-18 17:31:45,211 ERROR: Invalid timestamp format: 
+2025-09-18 17:31:45,311 INFO: Tweet saved: id=1968699154516807734 (BTC), author=@Unknown, sentiment=-0.0644
+2025-09-18 17:31:45,312 INFO: Tweet received and processed: id=1968699154516807734, author=@Unknown, total_count=29
+2025-09-18 17:31:56,543 ERROR: Invalid timestamp format: 
+2025-09-18 17:31:56,643 INFO: Tweet saved: id=1968699465444811044 (general), author=@Unknown, sentiment=0.0246
+2025-09-18 17:31:56,643 INFO: Tweet received and processed: id=1968699465444811044, author=@Unknown, total_count=30
+2025-09-18 17:31:56,643 ERROR: Invalid timestamp format: 
+2025-09-18 17:31:56,735 INFO: Tweet saved: id=1968699154516807734 (BTC), author=@Unknown, sentiment=-0.0644
+2025-09-18 17:31:56,736 INFO: Tweet received and processed: id=1968699154516807734, author=@Unknown, total_count=31
+2025-09-18 17:32:04,635 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:04,721 INFO: Tweet saved: id=1968699465444811044 (general), author=@Unknown, sentiment=0.0246
+2025-09-18 17:32:04,721 INFO: Tweet received and processed: id=1968699465444811044, author=@Unknown, total_count=32
+2025-09-18 17:32:04,721 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:04,816 INFO: Tweet saved: id=1968699154516807734 (BTC), author=@Unknown, sentiment=-0.0644
+2025-09-18 17:32:04,816 INFO: Tweet received and processed: id=1968699154516807734, author=@Unknown, total_count=33
+2025-09-18 17:32:13,330 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:13,407 INFO: Tweet saved: id=1968699465444811044 (general), author=@Unknown, sentiment=0.0246
+2025-09-18 17:32:13,407 INFO: Tweet received and processed: id=1968699465444811044, author=@Unknown, total_count=34
+2025-09-18 17:32:13,407 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:13,502 INFO: Tweet saved: id=1968699154516807734 (BTC), author=@Unknown, sentiment=-0.0644
+2025-09-18 17:32:13,502 INFO: Tweet received and processed: id=1968699154516807734, author=@Unknown, total_count=35
+2025-09-18 17:32:26,876 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:26,931 INFO: Tweet saved: id=1968699637071548611 (general), author=@Unknown, sentiment=0.0107
+2025-09-18 17:32:26,931 INFO: Tweet received and processed: id=1968699637071548611, author=@Unknown, total_count=36
+2025-09-18 17:32:26,931 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:27,003 INFO: Tweet saved: id=1968699465444811044 (general), author=@Unknown, sentiment=0.0246
+2025-09-18 17:32:27,004 INFO: Tweet received and processed: id=1968699465444811044, author=@Unknown, total_count=37
+2025-09-18 17:32:27,022 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:27,072 INFO: Tweet saved: id=1968699637071548611 (general), author=@Unknown, sentiment=0.0107
+2025-09-18 17:32:27,072 INFO: Tweet received and processed: id=1968699637071548611, author=@Unknown, total_count=38
+2025-09-18 17:32:27,072 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:27,145 INFO: Tweet saved: id=1968699465444811044 (general), author=@Unknown, sentiment=0.0246
+2025-09-18 17:32:27,145 INFO: Tweet received and processed: id=1968699465444811044, author=@Unknown, total_count=39
+2025-09-18 17:32:27,145 ERROR: Invalid timestamp format: 
+2025-09-18 17:32:27,237 INFO: Tweet saved: id=1968699154516807734 (BTC), author=@Unknown, sentiment=-0.0644
+2025-09-18 17:32:27,237 INFO: Tweet received and processed: id=1968699154516807734, author=@Unknown, total_count=40
+2025-09-18 17:33:25,103 ERROR: Invalid timestamp format: 
+2025-09-18 17:33:25,167 INFO: Tweet saved: id=1968699637071548611 (general), author=@Unknown, sentiment=0.0107
+2025-09-18 17:33:25,167 INFO: Tweet received and processed: id=1968699637071548611, author=@Unknown, total_count=41
+2025-09-18 17:33:36,467 ERROR: Invalid timestamp format: 
+2025-09-18 17:33:36,519 INFO: Tweet saved: id=1968699637071548611 (general), author=@Unknown, sentiment=0.0107
+2025-09-18 17:33:36,519 INFO: Tweet received and processed: id=1968699637071548611, author=@Unknown, total_count=42
+2025-09-18 17:33:44,666 ERROR: Invalid timestamp format: 
+2025-09-18 17:33:44,745 INFO: Tweet saved: id=1968699637071548611 (general), author=@Unknown, sentiment=0.0107
+2025-09-18 17:33:44,745 INFO: Tweet received and processed: id=1968699637071548611, author=@Unknown, total_count=43
+2025-09-18 17:33:53,280 ERROR: Invalid timestamp format: 
+2025-09-18 17:33:53,340 INFO: Tweet saved: id=1968699637071548611 (general), author=@Unknown, sentiment=0.0107
+2025-09-18 17:33:53,340 INFO: Tweet received and processed: id=1968699637071548611, author=@Unknown, total_count=44
+2025-09-18 17:40:47,868 ERROR: Invalid timestamp format: 
+2025-09-18 17:40:47,959 INFO: Tweet saved: id=1968701641428709461 (general), author=@Unknown, sentiment=-0.0176
+2025-09-18 17:40:47,959 INFO: Tweet received and processed: id=1968701641428709461, author=@Unknown, total_count=45
+2025-09-18 17:41:03,406 ERROR: Invalid timestamp format: 
+2025-09-18 17:41:03,484 INFO: Tweet saved: id=1968701641428709461 (general), author=@Unknown, sentiment=-0.0176
+2025-09-18 17:41:03,484 INFO: Tweet received and processed: id=1968701641428709461, author=@Unknown, total_count=46
+2025-09-18 17:41:45,150 ERROR: Invalid timestamp format: 
+2025-09-18 17:41:45,219 INFO: Tweet saved: id=1968701641428709461 (general), author=@Unknown, sentiment=-0.0176
+2025-09-18 17:41:45,219 INFO: Tweet received and processed: id=1968701641428709461, author=@Unknown, total_count=47
+2025-09-18 17:41:51,160 INFO: Optimization loop cancelled
+2025-09-18 17:41:51,160 INFO: Trading loop cancelled
+2025-09-18 17:41:51,160 INFO: Reconnecting in 30 seconds...
+2025-09-18 17:41:51,162 INFO: Цикл оптимизации завершён
+2025-09-18 17:41:51,163 INFO: Торговый цикл завершён
+2025-09-18 17:46:25,025 INFO: Using device: cpu 
+2025-09-18 17:51:21,995 INFO: Using device: cpu 
+2025-09-18 17:51:24,720 INFO: Начало месячной оптимизации
+2025-09-18 17:51:31,985 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 17:51:35,107 INFO: Unable to initialize backend 'tpu': UNIMPLEMENTED: LoadPjrtPlugin is not implemented on windows yet.
+2025-09-18 17:52:11,081 INFO: Starting stage 1 optimization with 540 combinations
+2025-09-18 17:52:11,081 INFO: Running grid optimization with 540 combinations
+2025-09-18 18:01:05,251 INFO: Using device: cpu 
+2025-09-18 18:01:08,139 INFO: Начало месячной оптимизации
+2025-09-18 18:01:15,863 INFO: Получено 8759 записей исторических данных с Binance
+2025-09-18 18:01:19,159 INFO: Unable to initialize backend 'tpu': UNIMPLEMENTED: LoadPjrtPlugin is not implemented on windows yet.
+2025-09-18 18:01:47,202 INFO: Starting stage 1 optimization with 540 combinations
+2025-09-18 18:01:47,202 INFO: Running grid optimization with 540 combinations
+2025-09-18 18:02:56,797 INFO: Лучший результат этапа 1: 16731.60, параметры: {'Take Profit %': 7, 'Stop Loss %': 3, 'Entry Threshold_0_2': 0.3, 'Entry Threshold_0_5': 0.3, 'Leverage': 1, 'Final Capital': np.float64(16731.59605044374), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+2024-09-18 22:00:00   60629.79   60745.99  ...         0  10000.000000
+2024-09-18 23:00:00   60057.99   60320.00  ...         0  10000.000000
+2024-09-19 00:00:00   60230.01   60496.95  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 14:00:00  117190.48  117300.00  ...        -1  16806.146356
+2025-09-18 15:00:00  117063.41  117279.00  ...        -1  16797.362158
+2025-09-18 16:00:00  117124.69  117655.55  ...        -1  16753.312181
+2025-09-18 17:00:00  117432.04  117843.83  ...        -1  16723.429570
+2025-09-18 18:00:00  117640.54  117705.51  ...        -1  16731.596050
+
+[8759 rows x 67 columns]}
+2025-09-18 18:02:56,797 INFO: Starting stage 2 optimization with 81 combinations
+2025-09-18 18:02:56,797 INFO: Running grid optimization with 81 combinations
+2025-09-18 18:03:06,126 INFO: Лучший результат этапа 2: 17707.40, параметры: {'Take Profit %': np.int64(7), 'Stop Loss %': np.float64(3.0), 'Entry Threshold_0_2': np.float64(0.3), 'Entry Threshold_0_5': np.float64(0.4), 'Leverage': 1, 'Final Capital': np.float64(17707.39640190379), 'result_df':                           open       high  ...  position  equity_curve
+time                                       ...                        
+2024-09-18 20:00:00   59915.26   60247.69  ...         0  10000.000000
+2024-09-18 21:00:00   60013.02   61318.60  ...         0  10000.000000
+2024-09-18 22:00:00   60629.79   60745.99  ...         0  10000.000000
+2024-09-18 23:00:00   60057.99   60320.00  ...         0  10000.000000
+2024-09-19 00:00:00   60230.01   60496.95  ...         0  10000.000000
+...                        ...        ...  ...       ...           ...
+2025-09-18 14:00:00  117190.48  117300.00  ...        -1  17786.294542
+2025-09-18 15:00:00  117063.41  117279.00  ...        -1  17776.998043
+2025-09-18 16:00:00  117124.69  117655.55  ...        -1  17730.379034
+2025-09-18 17:00:00  117432.04  117843.83  ...        -1  17698.753646
+2025-09-18 18:00:00  117640.54  117705.51  ...        -1  17707.396402
+
+[8759 rows x 67 columns]}
+2025-09-18 18:03:06,126 INFO: ЛУЧШИЕ ПАРАМЕТРЫ: (np.int64(7), np.float64(3.0), np.float64(0.3), np.float64(0.4), 1) \u2192 Капитал: 17707.40
+2025-09-18 18:03:06,134 INFO: Результаты сохранены в C:\Users\otto\Desktop\bot\trading_bybit_bot\optimization_results.csv
+2025-09-18 18:03:06,624 INFO: Оптимизированные параметры: (np.int64(7), np.float64(3.0), np.float64(0.3), np.float64(0.4), 1)
+2025-09-18 18:03:06,633 INFO: [2025-09-18 18:01:08.139599] Сохранены оптимизированные параметры: tp=7.00, sl=3.00, e2=0.30, e5=0.40, leverage=1.00
+2025-09-18 18:03:07,072 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 18:03:10,281 INFO: Loaded 0 tweets from C:\Users\otto\Desktop\bot\tweet_analyzer\sentiment_BTC.csv into C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 18:03:10,285 WARNING: No tweets loaded from CSV, sentiment will default to 0.0
+2025-09-18 18:03:10,286 INFO: Initialized tweets table in C:\Users\otto\Desktop\bot\trading_bybit_bot\trading_data.db
+2025-09-18 18:03:10,286 INFO: Parser initialized for 5 accounts
+2025-09-18 18:03:10,548 INFO: [2025-09-18 18:03:10.548805] Instrument info: min_qty=0.001, qty_step=0.001, tick_size=0.1
+2025-09-18 18:03:10,748 INFO: [2025-09-18 18:03:10.748222] No active position found
+2025-09-18 18:03:10,748 INFO: [2025-09-18 18:03:10.748222] Waiting for next hourly candle at 2025-09-18 19:00:00, sleeping for 3409.251778 seconds
+2025-09-18 18:03:10,852 INFO: Rule created with ID: b4b1344931f94799a07bed76e4339871
+2025-09-18 18:03:11,467 INFO: Rule b4b1344931f94799a07bed76e4339871 activated successfully
+2025-09-18 18:03:11,468 INFO: Starting WebSocket with headers: [('x-api-key', 'new1_b254c56b257e4d128dabbbb6f0adafdc'), ('User-Agent', 'TradingBot/1.0')]
+2025-09-18 18:03:12,078 INFO: WebSocket connection established
+2025-09-18 18:03:12,078 INFO: WebSocket connection opened
+2025-09-18 18:03:12,078 INFO: Waiting for server to send data...
+2025-09-18 18:03:12,079 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,249 INFO: Tweet saved: id=1968706743954706571 (general), author=@Unknown, sentiment=-0.7252
+2025-09-18 18:03:12,249 INFO: Tweet received and processed: id=1968706743954706571, author=@Unknown, total_count=1
+2025-09-18 18:03:12,249 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,306 INFO: Tweet saved: id=1968706743954706571 (general), author=@Unknown, sentiment=-0.7252
+2025-09-18 18:03:12,308 INFO: Tweet received and processed: id=1968706743954706571, author=@Unknown, total_count=2
+2025-09-18 18:03:12,308 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,363 INFO: Tweet saved: id=1968706743954706571 (general), author=@Unknown, sentiment=-0.7252
+2025-09-18 18:03:12,363 INFO: Tweet received and processed: id=1968706743954706571, author=@Unknown, total_count=3
+2025-09-18 18:03:12,364 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,418 INFO: Tweet saved: id=1968706743954706571 (general), author=@Unknown, sentiment=-0.7252
+2025-09-18 18:03:12,418 INFO: Tweet received and processed: id=1968706743954706571, author=@Unknown, total_count=4
+2025-09-18 18:03:12,420 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,472 INFO: Tweet saved: id=1968706743954706571 (general), author=@Unknown, sentiment=-0.7252
+2025-09-18 18:03:12,473 INFO: Tweet received and processed: id=1968706743954706571, author=@Unknown, total_count=5
+2025-09-18 18:03:12,473 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,518 INFO: Tweet saved: id=1968701641428709461 (general), author=@Unknown, sentiment=-0.0176
+2025-09-18 18:03:12,520 INFO: Tweet received and processed: id=1968701641428709461, author=@Unknown, total_count=6
+2025-09-18 18:03:12,520 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,556 INFO: Tweet saved: id=1968699637071548611 (general), author=@Unknown, sentiment=0.0107
+2025-09-18 18:03:12,556 INFO: Tweet received and processed: id=1968699637071548611, author=@Unknown, total_count=7
+2025-09-18 18:03:12,556 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,607 INFO: Tweet saved: id=1968699465444811044 (general), author=@Unknown, sentiment=0.0246
+2025-09-18 18:03:12,607 INFO: Tweet received and processed: id=1968699465444811044, author=@Unknown, total_count=8
+2025-09-18 18:03:12,607 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,672 INFO: Tweet saved: id=1968699154516807734 (BTC), author=@Unknown, sentiment=-0.0644
+2025-09-18 18:03:12,672 INFO: Tweet received and processed: id=1968699154516807734, author=@Unknown, total_count=9
+2025-09-18 18:03:12,673 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,736 INFO: Tweet saved: id=1968695029930541198 (general), author=@Unknown, sentiment=0.0474
+2025-09-18 18:03:12,736 INFO: Tweet received and processed: id=1968695029930541198, author=@Unknown, total_count=10
+2025-09-18 18:03:12,737 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,795 INFO: Tweet saved: id=1968691633743863899 (general), author=@Unknown, sentiment=0.1893
+2025-09-18 18:03:12,795 INFO: Tweet received and processed: id=1968691633743863899, author=@Unknown, total_count=11
+2025-09-18 18:03:12,795 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,866 INFO: Tweet saved: id=1968686818469040405 (SOL), author=@Unknown, sentiment=0.1395
+2025-09-18 18:03:12,867 INFO: Tweet received and processed: id=1968686818469040405, author=@Unknown, total_count=12
+2025-09-18 18:03:12,867 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,919 INFO: Tweet saved: id=1968684039230910607 (SOL), author=@Unknown, sentiment=0.1643
+2025-09-18 18:03:12,919 INFO: Tweet received and processed: id=1968684039230910607, author=@Unknown, total_count=13
+2025-09-18 18:03:12,919 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:12,970 INFO: Tweet saved: id=1968680899794653483 (BTC), author=@Unknown, sentiment=0.0145
+2025-09-18 18:03:12,970 INFO: Tweet received and processed: id=1968680899794653483, author=@Unknown, total_count=14
+2025-09-18 18:03:12,970 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,045 INFO: Tweet saved: id=1968677010370085256 (general), author=@Unknown, sentiment=0.7901
+2025-09-18 18:03:13,045 INFO: Tweet received and processed: id=1968677010370085256, author=@Unknown, total_count=15
+2025-09-18 18:03:13,045 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,102 INFO: Tweet saved: id=1968676553887191339 (SOL), author=@Unknown, sentiment=0.5197
+2025-09-18 18:03:13,102 INFO: Tweet received and processed: id=1968676553887191339, author=@Unknown, total_count=16
+2025-09-18 18:03:13,103 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,158 INFO: Tweet saved: id=1968670502152532121 (general), author=@Unknown, sentiment=0.0299
+2025-09-18 18:03:13,158 INFO: Tweet received and processed: id=1968670502152532121, author=@Unknown, total_count=17
+2025-09-18 18:03:13,158 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,306 INFO: Tweet saved: id=1968668938578862180 (general), author=@Unknown, sentiment=0.6986
+2025-09-18 18:03:13,306 INFO: Tweet received and processed: id=1968668938578862180, author=@Unknown, total_count=18
+2025-09-18 18:03:13,307 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,393 INFO: Tweet saved: id=1968667726169378847 (general), author=@Unknown, sentiment=0.0133
+2025-09-18 18:03:13,393 INFO: Tweet received and processed: id=1968667726169378847, author=@Unknown, total_count=19
+2025-09-18 18:03:13,394 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,492 INFO: Tweet saved: id=1968663176691462473 (general), author=@Unknown, sentiment=0.1943
+2025-09-18 18:03:13,492 INFO: Tweet received and processed: id=1968663176691462473, author=@Unknown, total_count=20
+2025-09-18 18:03:13,492 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,539 INFO: Tweet saved: id=1968661618876702842 (BTC), author=@Unknown, sentiment=0.2044
+2025-09-18 18:03:13,539 INFO: Tweet received and processed: id=1968661618876702842, author=@Unknown, total_count=21
+2025-09-18 18:03:13,540 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,602 INFO: Tweet saved: id=1968660884819005536 (general), author=@Unknown, sentiment=0.8975
+2025-09-18 18:03:13,602 INFO: Tweet received and processed: id=1968660884819005536, author=@Unknown, total_count=22
+2025-09-18 18:03:13,603 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,683 INFO: Tweet saved: id=1968659472236327254 (BTC,ETH,SOL), author=@Unknown, sentiment=0.1215
+2025-09-18 18:03:13,683 INFO: Tweet received and processed: id=1968659472236327254, author=@Unknown, total_count=23
+2025-09-18 18:03:13,684 ERROR: Invalid timestamp format: 
+2025-09-18 18:03:13,747 INFO: Tweet saved: id=1968653851499585931 (BTC), author=@Unknown, sentiment=0.7403
+2025-09-18 18:03:13,747 INFO: Tweet received and processed: id=1968653851499585931, author=@Unknown, total_count=24

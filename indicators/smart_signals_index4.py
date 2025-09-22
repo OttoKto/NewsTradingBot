@@ -1,9 +1,10 @@
+import warnings_config  # Отключаем предупреждения
 import requests
 import datetime
 import pandas as pd
 import numpy as np
 import ta
-import pandas_ta_classic as pta # pip install pandas-ta-classic
+import pandas_ta_classic as pta
 import matplotlib.pyplot as plt
 from itertools import product
 from multiprocessing import Pool
@@ -14,6 +15,7 @@ from joblib import Parallel, delayed
 from tqdm import tqdm
 from itertools import product
 import logging
+from paths import get_sentiment_csv_path, get_optimization_results_path, get_indicator_settings_path
 
 
 def calculate_wma(data, window):
@@ -508,9 +510,7 @@ def run_strategy_tp_ATR(df, initial_capital=100, commission_rate=0.001, stop_los
                         ind_entry_0_2=0.7, ind_entry_0_5=0.7, leverage=1, sentiment_long=0.5, sentiment_short=-0.5,
                         front_output=False):
     # Determine the path to the sentiment file
-    current_file_path = os.path.abspath(__file__)
-    parent_dir = os.path.dirname(os.path.dirname(current_file_path))
-    sentiment_file_path = os.path.join(parent_dir, 'tweet_analyzer', 'sentiment_BTC.csv')
+    sentiment_file_path = get_sentiment_csv_path('BTC')
 
     # Load sentiment data
     try:
@@ -777,7 +777,7 @@ def run_grid_optimization(df, tp_values, sl_values, entry_0_2_values, entry_0_5_
 
 
 def optimize_strategy_two_stage(df, initial_capital=10000, commission_rate=0.001,
-                                save_path="optimization_results.csv"):
+                                save_path=None):
     # Reduced grid for testing
     tp_values = [3, 5, 7, 9, 12]
     sl_values = [1, 2, 3, 5]
@@ -850,6 +850,8 @@ def optimize_strategy_two_stage(df, initial_capital=10000, commission_rate=0.001
         "Final Capital": r["Final Capital"]
     } for r in stage2_results])
     try:
+        if save_path is None:
+            save_path = get_optimization_results_path()
         results_df.to_csv(save_path, index=False)
         logger.info(f"Результаты сохранены в {save_path}")
     except Exception as e:
@@ -944,9 +946,9 @@ def calculate_index(weights, signals):
 
 if __name__ == '__main__':
     final_capital = 100
-    tickers = "BTCUSDT"
+
     # Начало исторических данных (начало тренировочного периода)
-    initial_training_start = datetime.datetime(2023,12, 1)
+    initial_training_start = datetime.datetime(2023, 12, 1)
     training_length_months = 12  # 12 месяцев обучения
     trading_optimization_length_month = 12
 
@@ -958,7 +960,7 @@ if __name__ == '__main__':
     test_dates = []
 
 
-    settings = read_indicator_settings('indicator_settings.txt')
+    settings = read_indicator_settings(get_indicator_settings_path())
 
     # Определяем колонки, используемые для расчёта индекса
     signal_columns = [
@@ -979,109 +981,109 @@ if __name__ == '__main__':
         "Parabolic_SAR_Signal",
         "Ichimoku_Signal"
     ]
-    for ticker in tickers:
-        # Основной цикл (скользящее окно)
-        while True:
-            # Тестовый период: следующий месяц после тренировочного окна
-            test_start = (training_end - pd.DateOffset(weeks=2)).to_pydatetime()
-            test_end = (pd.Timestamp(test_start) + pd.DateOffset(months=1) + pd.DateOffset(weeks=2)).to_pydatetime()
 
-            if test_end > today:
-                break
+    # Основной цикл (скользящее окно)
+    while True:
+        # Тестовый период: следующий месяц после тренировочного окна
+        test_start = (training_end - pd.DateOffset(weeks=2)).to_pydatetime()
+        test_end = (pd.Timestamp(test_start) + pd.DateOffset(months=1) + pd.DateOffset(weeks=2)).to_pydatetime()
 
-            # Форматирование дат для API-запросов
-            train_start_str = training_start.strftime('%Y-%m-%d 00:00:00')
-            train_end_str = training_end.strftime('%Y-%m-%d 00:00:00')
-            test_start_str = test_start.strftime('%Y-%m-%d 00:00:00')
-            test_end_str = test_end.strftime('%Y-%m-%d 00:00:00')
+        if test_end > today:
+            break
 
-            # 1. Обучение (тренировочный период)йцу
-            train_settings = {
-                'ticker': 'BTCUSDT',
-                'interval': '1h',
-                'start': train_start_str,
-                'end': train_end_str
-            }
-            train_data = get_binance_data_by_requests(
-                ticker=train_settings['ticker'],
-                interval=train_settings['interval'],
-                start=train_settings['start'],
-                end=train_settings['end']
-            )
-            train_data = calculate_indicators(train_data, settings)
-            train_data = add_signals(train_data)
+        # Форматирование дат для API-запросов
+        train_start_str = training_start.strftime('%Y-%m-%d 00:00:00')
+        train_end_str = training_end.strftime('%Y-%m-%d 00:00:00')
+        test_start_str = test_start.strftime('%Y-%m-%d 00:00:00')
+        test_end_str = test_end.strftime('%Y-%m-%d 00:00:00')
 
-            # Извлекаем матрицу сигналов и цены закрытия для оптимизации JAX
-            train_signals = jnp.array(train_data[signal_columns].values)
-            train_close = jnp.array(train_data["close"].values)
+        # 1. Обучение (тренировочный период)
+        train_settings = {
+            'ticker': 'BTCUSDT',
+            'interval': '1h',
+            'start': train_start_str,
+            'end': train_end_str
+        }
+        train_data = get_binance_data_by_requests(
+            ticker=train_settings['ticker'],
+            interval=train_settings['interval'],
+            start=train_settings['start'],
+            end=train_settings['end']
+        )
+        train_data = calculate_indicators(train_data, settings)
+        train_data = add_signals(train_data)
 
-            optimized_weights_0_2, optimized_weights_0_5 = optimize_weights_jax(train_signals, train_close, learning_rate=0.01, epochs=1000)
-            # Рассчитываем индекс на основе оптимизированных весов
-            index_values = calculate_index(optimized_weights_0_2, train_signals)
-            # Преобразуем jax-массив в numpy для сохранения в DataFrame
-            train_data['Indicator_Index_0_2'] = np.array(index_values)
-            # Рассчитываем индекс на основе оптимизированных весов
-            index_values = calculate_index(optimized_weights_0_5, train_signals)
-            # Преобразуем jax-массив в numpy для сохранения в DataFrame
-            train_data['Indicator_Index_0_5'] = np.array(index_values)
+        # Извлекаем матрицу сигналов и цены закрытия для оптимизации JAX
+        train_signals = jnp.array(train_data[signal_columns].values)
+        train_close = jnp.array(train_data["close"].values)
 
-            # Определяем начало оптимизационного периода (последние trading_optimization_length_month месяцев)
-            optimization_start = (pd.Timestamp(training_end) - pd.DateOffset(
-                months=trading_optimization_length_month)).to_pydatetime()
-            train_data_opt = train_data.loc[optimization_start:]
+        optimized_weights_0_2, optimized_weights_0_5 = optimize_weights_jax(train_signals, train_close, learning_rate=0.01, epochs=1000)
+        # Рассчитываем индекс на основе оптимизированных весов
+        index_values = calculate_index(optimized_weights_0_2, train_signals)
+        # Преобразуем jax-массив в numpy для сохранения в DataFrame
+        train_data['Indicator_Index_0_2'] = np.array(index_values)
+        # Рассчитываем индекс на основе оптимизированных весов
+        index_values = calculate_index(optimized_weights_0_5, train_signals)
+        # Преобразуем jax-массив в numpy для сохранения в DataFrame
+        train_data['Indicator_Index_0_5'] = np.array(index_values)
 
-            best_params, best_capital, train_data_opt = optimize_strategy_two_stage(
-                train_data_opt,
-                initial_capital=100,
-                commission_rate=(0.01 / 100)
-            )
+        # Определяем начало оптимизационного периода (последние trading_optimization_length_month месяцев)
+        optimization_start = (pd.Timestamp(training_end) - pd.DateOffset(
+            months=trading_optimization_length_month)).to_pydatetime()
+        train_data_opt = train_data.loc[optimization_start:]
 
-            # 2. Тестирование (следующий месяц)
-            test_settings = {
-                'ticker':'BTCUSDT',
-                'interval': '1h',
-                'start': test_start_str,
-                'end': test_end_str
-            }
-            test_data = get_binance_data_by_requests(
-                ticker=test_settings['ticker'],
-                interval=test_settings['interval'],
-                start=test_settings['start'],
-                end=test_settings['end']
-            )
-            test_data = calculate_indicators(test_data, settings)
-            test_data = add_signals(test_data)
+        best_params, best_capital, train_data_opt = optimize_strategy_two_stage(
+            train_data_opt,
+            initial_capital=100,
+            commission_rate=(0.01 / 100)
+        )
 
-            test_signals = jnp.array(test_data[signal_columns].values)
-            test_close = jnp.array(test_data["close"].values)
-            index_values_test_0_2 = calculate_index(optimized_weights_0_2, test_signals)
-            test_data['Indicator_Index_0_2'] = np.array(index_values_test_0_2)
-            index_values_test_0_5 = calculate_index(optimized_weights_0_5, test_signals)
-            test_data['Indicator_Index_0_5'] = np.array(index_values_test_0_5)
+        # 2. Тестирование (следующий месяц)
+        test_settings = {
+            'ticker':'BTCUSDT',
+            'interval': '1h',
+            'start': test_start_str,
+            'end': test_end_str
+        }
+        test_data = get_binance_data_by_requests(
+            ticker=test_settings['ticker'],
+            interval=test_settings['interval'],
+            start=test_settings['start'],
+            end=test_settings['end']
+        )
+        test_data = calculate_indicators(test_data, settings)
+        test_data = add_signals(test_data)
 
-            test_data = run_strategy_tp_ATR(
-                df=test_data,
-                initial_capital=final_capital,
-                commission_rate=(0.01 / 100),
-                stop_loss_ATR=best_params[1],
-                take_profit_ATR=best_params[0],
-                ind_entry_0_2=best_params[2],
-                ind_entry_0_5=best_params[3],
-                leverage=best_params[4],
-                front_output=True
-            )
+        test_signals = jnp.array(test_data[signal_columns].values)
+        test_close = jnp.array(test_data["close"].values)
+        index_values_test_0_2 = calculate_index(optimized_weights_0_2, test_signals)
+        test_data['Indicator_Index_0_2'] = np.array(index_values_test_0_2)
+        index_values_test_0_5 = calculate_index(optimized_weights_0_5, test_signals)
+        test_data['Indicator_Index_0_5'] = np.array(index_values_test_0_5)
+
+        test_data = run_strategy_tp_ATR(
+            df=test_data,
+            initial_capital=final_capital,
+            commission_rate=(0.01 / 100),
+            stop_loss_ATR=best_params[1],
+            take_profit_ATR=best_params[0],
+            ind_entry_0_2=best_params[2],
+            ind_entry_0_5=best_params[3],
+            leverage=best_params[4],
+            front_output=True
+        )
 
 
-            final_capital = test_data['equity_curve'].iloc[-1]
+        final_capital = test_data['equity_curve'].iloc[-1]
 
-            capital_over_time.append(final_capital)
-            test_dates.append(test_start)
+        capital_over_time.append(final_capital)
+        test_dates.append(test_start)
 
-            print(f"Training: {train_start_str} to {train_end_str} -> Test: {test_start_str} to {test_end_str} | Capital: {final_capital}")
+        print(f"Training: {train_start_str} to {train_end_str} -> Test: {test_start_str} to {test_end_str} | Capital: {final_capital}")
 
-            # 3. Обновление тренировочного окна (скользящее окно)
-            training_start = (pd.Timestamp(training_start) + pd.DateOffset(months=1)).to_pydatetime()
-            training_end = (pd.Timestamp(training_end) + pd.DateOffset(months=1)).to_pydatetime()
+        # 3. Обновление тренировочного окна (скользящее окно)
+        training_start = (pd.Timestamp(training_start) + pd.DateOffset(months=1)).to_pydatetime()
+        training_end = (pd.Timestamp(training_end) + pd.DateOffset(months=1)).to_pydatetime()
 
     # Построение графика изменения капитала
     plt.figure(figsize=(12, 6))
