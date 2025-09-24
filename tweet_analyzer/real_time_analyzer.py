@@ -189,7 +189,7 @@ def store_tweet(tweet_data):
             try:
                 timestamp = datetime.strptime(tweet_data['created_at'], '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
             except ValueError:
-                logger.error(f"Invalid timestamp format: {tweet_data['created_at']}")
+                #logger.error(f"Invalid timestamp format: {tweet_data['created_at']}")
                 timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         sentiment_score, probs = get_sentiment(tweet_data['text'])
