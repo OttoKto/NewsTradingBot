@@ -285,6 +285,7 @@ class RealTimeTwitterAPIParser:
         self.monthly_limit = monthly_limit
         self.should_reconnect = True
         self.ws = None
+        self.rule_id = None
         init_tweets_table()  # Initialize table on startup
         logger.info(f"Parser initialized for {len(self.accounts)} accounts")
 
@@ -316,7 +317,7 @@ class RealTimeTwitterAPIParser:
                 if data.get("status") == "success":
                     rule_id = data.get("rule_id")
                     logger.info(f"Rule created with ID: {rule_id}")
-                    activated = await self.activate_filter_rule(rule_id)
+                    activated = await self.change_state_of_filter_rule(1, rule_id)
                     if activated:
                         return rule_id
                     else:
@@ -333,7 +334,7 @@ class RealTimeTwitterAPIParser:
                     return None
         return None
 
-    async def activate_filter_rule(self, rule_id, retries=3, backoff=3):
+    async def change_state_of_filter_rule(self, state, rule_id, retries=3, backoff=3):
         """Activate an existing filter rule by setting is_effect=1."""
         url = "https://api.twitterapi.io/oapi/tweet_filter/update_rule"
         headers = {
@@ -346,7 +347,7 @@ class RealTimeTwitterAPIParser:
             "tag": "twitter_accounts_filter",
             "value": " OR ".join([f"from:{username}" for username in self.accounts]),
             "interval_seconds": 100,
-            "is_effect": 1
+            "is_effect": state
         }
 
         for attempt in range(retries):
@@ -514,6 +515,8 @@ class RealTimeTwitterAPIParser:
                 try:
                     if getattr(self.ws, 'open', False):
                         await self.ws.close()
+                        if self.rule_id:
+                            await self.change_state_of_filter_rule(0, self.rule_id)
                         logger.info("WebSocket client closed")
                 except Exception as e:
                     logger.error(f"Error closing WebSocket: {e}", exc_info=True)
