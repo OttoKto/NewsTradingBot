@@ -128,25 +128,18 @@ def store_performance_metrics(timestamp, total_trades, win_trades, win_rate, cur
         logger.info(f"Сохранены метрики: сделок={total_trades}, винрейт={win_rate:.2f}%")
 
 async def twitter_parsing_loop(api_key, accounts):
-    """Асинхронная обёртка для парсера Twitter."""
+    """Асинхронная обёртка для парсера Twitter с корректной остановкой."""
     parser = RealTimeTwitterAPIParser(api_key, accounts)
     try:
-        while True:
-            await parser.start_real_time_parsing()  # Await the async method
-            await asyncio.sleep(3600)  # Check periodically
-            if not parser.should_reconnect:  # Check if parser intends to stop
-                logger.warning("Twitter parsing stopped, attempting restart")
-                parser = RealTimeTwitterAPIParser(api_key, accounts)  # Reinitialize
+        # Просто вызываем WS цикл один раз
+        await parser.start_real_time_parsing()
     except asyncio.CancelledError:
-        logger.info("Twitter parsing loop cancelled")
+        logger.info("Twitter parsing loop cancelled, stopping parser...")
         await parser.stop_real_time_parsing()
     except Exception as e:
         logger.error(f"Ошибка в twitter_parsing_loop: {str(e)}", exc_info=True)
-        await asyncio.sleep(3600)
-        await parser.start_real_time_parsing()  # Retry on error
-    finally:
         await parser.stop_real_time_parsing()
-        logger.info("Цикл парсинга Twitter завершён")
+
 
 async def optimization_loop(api_key, secret_key, symbol, testnet=True, demo=False):
     client = Client(api_key, secret_key, testnet=testnet, demo=demo, asynced=True)

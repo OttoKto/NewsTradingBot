@@ -14,13 +14,14 @@ import os
 import warnings
 from paths import get_trading_log_path, get_database_path, get_sentiment_csv_path
 
-# Configure logging
-logging.basicConfig(
-    filename=get_trading_log_path(),
-    level=logging.INFO,
-    format='%(asctime)s %(levelname)s: %(message)s'
+logger = logging.getLogger("TwitterParser")
+logger.setLevel(logging.INFO)
+formatter = logging.Formatter(
+    "%(asctime)s [%(levelname)s] %(name)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
 )
-logger = logging.getLogger(__name__)
+ch = logging.StreamHandler()
+ch.setFormatter(formatter)
+logger.addHandler(ch)
 
 # Correct database path
 DB_NAME = get_database_path()
@@ -286,22 +287,19 @@ class RealTimeTwitterAPIParser:
         self.should_reconnect = True
         self.ws = None
         self.rule_id = None
-        init_tweets_table()  # Initialize table on startup
+        self.stopped = False
+        init_tweets_table()
         logger.info(f"Parser initialized for {len(self.accounts)} accounts")
 
     async def create_filter_rule(self, retries=3, backoff=3):
-        """Create a filter rule via REST API with retries."""
         url = "https://api.twitterapi.io/oapi/tweet_filter/add_rule"
-        headers = {
-            "x-api-key": self.api_key,
-            "Content-Type": "application/json",
-            "User-Agent": "TradingBot/1.0"
-        }
+        headers = {"x-api-key": self.api_key, "Content-Type": "application/json", "User-Agent": "TradingBot/1.0"}
         payload = {
             "tag": "twitter_accounts_filter",
-            "value": " OR ".join([f"from:{username}" for username in self.accounts]),
+            "value": " OR ".join([f"from:{u}" for u in self.accounts]),
             "interval_seconds": 100
         }
+
         if len(payload["value"]) > 255:
             logger.error("Filter exceeds 255 characters limit: %s", payload["value"])
             return None
@@ -318,34 +316,24 @@ class RealTimeTwitterAPIParser:
                     rule_id = data.get("rule_id")
                     logger.info(f"Rule created with ID: {rule_id}")
                     activated = await self.change_state_of_filter_rule(1, rule_id)
-                    if activated:
-                        return rule_id
-                    else:
-                        return None
+                    return rule_id if activated else None
                 else:
                     logger.error(f"Error creating rule: {data.get('msg')}, Response: {response.text}")
                     return None
             except requests.RequestException as e:
-                logger.error(f"Attempt {attempt + 1}/{retries} failed: {str(e)}")
+                logger.error(f"Attempt {attempt+1}/{retries} failed: {e}", exc_info=True)
                 if attempt < retries - 1:
                     await asyncio.sleep(backoff * (2 ** attempt))
-                else:
-                    logger.error("Failed to create rule after all attempts")
-                    return None
+        logger.error("Failed to create rule after all attempts")
         return None
 
     async def change_state_of_filter_rule(self, state, rule_id, retries=3, backoff=3):
-        """Activate an existing filter rule by setting is_effect=1."""
         url = "https://api.twitterapi.io/oapi/tweet_filter/update_rule"
-        headers = {
-            "x-api-key": self.api_key,
-            "Content-Type": "application/json",
-            "User-Agent": "TradingBot/1.0"
-        }
+        headers = {"x-api-key": self.api_key, "Content-Type": "application/json", "User-Agent": "TradingBot/1.0"}
         payload = {
             "rule_id": rule_id,
             "tag": "twitter_accounts_filter",
-            "value": " OR ".join([f"from:{username}" for username in self.accounts]),
+            "value": " OR ".join([f"from:{u}" for u in self.accounts]),
             "interval_seconds": 100,
             "is_effect": state
         }
@@ -359,39 +347,30 @@ class RealTimeTwitterAPIParser:
                 response.raise_for_status()
                 data = response.json()
                 if data.get("status") == "success":
-                    logger.info(f"Rule {rule_id} activated successfully")
+                    logger.info(f"Rule {rule_id} activated successfully (state={state})")
                     return True
                 else:
                     logger.error(f"Error activating rule: {data.get('msg')}, Response: {response.text}")
                     return False
             except requests.RequestException as e:
-                logger.error(f"Attempt {attempt + 1}/{retries} failed to activate rule: {str(e)}")
+                logger.error(f"Attempt {attempt+1}/{retries} failed to activate rule: {e}", exc_info=True)
                 if attempt < retries - 1:
                     await asyncio.sleep(backoff * (2 ** attempt))
-                else:
-                    return False
         return False
 
     async def on_message(self, ws, message):
-        """Handle incoming tweet messages."""
         try:
             data = json.loads(message)
             event_type = data.get("event_type")
-
-            # Игнорируем ping/pong и connected события
             if event_type in ("ping", "pong", "connected"):
                 return
-
-            # Обработка твитов
             if event_type == "tweet":
-                tweets = data.get("tweets", [])
-                for tweet in tweets:
+                for tweet in data.get("tweets", []):
                     if self.tweet_count >= self.monthly_limit:
-                        logger.warning("Monthly limit reached during processing, stopping")
+                        logger.warning("Monthly limit reached during processing, stopping parser")
                         self.should_reconnect = False
                         await self.stop_real_time_parsing()
                         return
-
                     tweet_data = {
                         "id": tweet.get("id"),
                         "text": tweet.get("text", ""),
@@ -402,128 +381,110 @@ class RealTimeTwitterAPIParser:
                         "like_count": tweet.get("like_count", 0),
                         "reply_count": tweet.get("reply_count", 0)
                     }
-
                     store_tweet(tweet_data)
                     self.tweet_count += 1
-                    logger.info(
-                        f"Tweet received and processed: id={tweet_data['id']}, "
-                        f"author=@{tweet_data['author_username']}, total_count={self.tweet_count}"
-                    )
-
-        except json.JSONDecodeError:
-            logger.error("Error decoding JSON message")
+                    logger.info(f"Tweet received id={tweet_data['id']} from @{tweet_data['author_username']} total={self.tweet_count}")
         except Exception as e:
-            logger.error(f"Error processing message: {str(e)}", exc_info=True)
+            logger.error(f"Error processing message: {e}", exc_info=True)
 
     async def on_error(self, ws, error):
-        """Handle WebSocket errors."""
-        logger.error(f"WebSocket error: {str(error)}")
+        logger.error(f"WebSocket error: {error}", exc_info=True)
         if isinstance(error, websockets.exceptions.ConnectionClosed):
-            logger.error(f"Connection closed: {str(error)}")
+            logger.error(f"Connection closed: {error}", exc_info=True)
         elif isinstance(error, websockets.exceptions.InvalidStatusCode):
-            logger.error(f"Invalid status code: {str(error)}. Check API key or URL.")
+            logger.error(f"Invalid status code: {error}. Check API key or URL.", exc_info=True)
             if "403" in str(error):
                 logger.error("403 Forbidden. Check API key or Cloudflare restrictions.")
                 self.should_reconnect = False
         elif isinstance(error, asyncio.TimeoutError):
-            logger.error("Connection timeout. Check network or server.")
+            logger.error("Connection timeout. Check network or server.", exc_info=True)
 
     async def on_close(self, ws, close_status_code, close_msg):
-        """Handle WebSocket closure."""
         logger.info(f"WebSocket closed: code={close_status_code}, message={close_msg}")
         if close_status_code in (401, 403):
             logger.error(f"Authentication or permission error: {close_status_code}")
             self.should_reconnect = False
         elif self.should_reconnect:
-            logger.info("Reconnecting in 30 seconds...")
+            logger.info("Attempting to reconnect in 30 seconds...")
             await asyncio.sleep(30)
             await self.start_real_time_parsing()
 
     async def on_open(self, ws):
-        """Handle WebSocket opening."""
         logger.info("WebSocket connection opened")
         logger.info("Waiting for server to send data...")
 
     async def start_real_time_parsing(self):
-        """Start the WebSocket client for streaming."""
-        # Проверяем активное соединение
-        if self.ws:
-            try:
-                if self.ws.open:
-                    logger.warning("Streaming already active")
-                    return
-            except AttributeError:
-                logger.warning("Streaming already active (ws.open не найден)")
-                return
+        if self.ws and getattr(self.ws, "open", False):
+            logger.warning("Streaming already active")
+            return
 
-        if not hasattr(self, 'rule_id') or not self.rule_id:
+        if not self.rule_id:
             self.rule_id = await self.create_filter_rule()
             if not self.rule_id:
-                logger.error("Failed to create filter rule, streaming not possible")
-                self.should_reconnect = False
+                logger.error("Failed to create filter rule, cannot start streaming")
                 return
 
-        headers = [
-            ("x-api-key", self.api_key),
-            ("User-Agent", "TradingBot/1.0")
-        ]
-        logger.info(f"Starting WebSocket with headers: {headers}")
+        headers = [("x-api-key", self.api_key), ("User-Agent", "TradingBot/1.0")]
+        self.stopped = False
 
-        while self.should_reconnect:
-            try:
-                self.ws = await websockets.connect(
-                    "wss://ws.twitterapi.io/twitter/tweet/websocket",
-                    additional_headers=headers,
-                    ping_interval=20,  # каждые 20 секунд отправляем ping
-                    ping_timeout=10  # ждём pong максимум 10 секунд
-                )
-                logger.info("WebSocket connection established")
-                await self.on_open(self.ws)
+        try:
+            self.ws = await websockets.connect(
+                "wss://ws.twitterapi.io/twitter/tweet/websocket",
+                additional_headers=headers,
+                ping_interval=20,
+                ping_timeout=10
+            )
+            await self.on_open(self.ws)
 
-                while self.should_reconnect:
+            while not self.stopped:
+                try:
+                    message = await asyncio.wait_for(self.ws.recv(), timeout=30)
+                    await self.on_message(self.ws, message)
+                except asyncio.TimeoutError:
+                    continue
+                except asyncio.CancelledError:
+                    logger.info("WebSocket recv cancelled")
+                    await self.stop_real_time_parsing()
+                    break
+                except Exception as e:
+                    logger.error(f"Error receiving message: {e}", exc_info=True)
+                    await asyncio.sleep(5)
+
+        except asyncio.CancelledError:
+            logger.info("WebSocket start cancelled")
+        except Exception as e:
+            logger.error(f"WebSocket connection error: {e}", exc_info=True)
+        finally:
+            if self.ws:
+                if getattr(self.ws, "open", False):
                     try:
-                        message = await self.ws.recv()
-                        await self.on_message(self.ws, message)
-                    except websockets.exceptions.ConnectionClosedError as e:
-                        logger.warning(f"WebSocket closed unexpectedly: {e}")
-                        break
+                        await asyncio.shield(self.ws.close())
+                        logger.info("WebSocket closed successfully in finally block")
                     except Exception as e:
-                        logger.error(f"Error receiving message: {e}", exc_info=True)
-                        await asyncio.sleep(5)
-
-            except Exception as e:
-                logger.error(f"Error starting WebSocket: {str(e)}", exc_info=True)
-                await asyncio.sleep(30)
-
-            finally:
-                if self.ws:
-                    try:
-                        if getattr(self.ws, 'open', False):
-                            await self.ws.close()
-                            logger.info("WebSocket closed in finally block")
-                    except Exception as e:
-                        logger.error(f"Error closing WebSocket: {e}", exc_info=True)
-
-                if self.should_reconnect:
-                    logger.info("Reconnecting in 30 seconds...")
-                    await asyncio.sleep(30)
+                        logger.error(f"Error closing WebSocket in finally block: {e}", exc_info=True)
+                self.ws = None
 
     async def stop_real_time_parsing(self):
-        """Stop the WebSocket client."""
+        logger.info("Stopping Twitter parsing...")
+        self.stopped = True
         try:
             if self.ws:
+                ws = self.ws
+                self.ws = None
+                if getattr(ws, "open", False):
+                    try:
+                        await asyncio.shield(ws.close())
+                        logger.info("WebSocket closed successfully")
+                    except Exception as e:
+                        logger.error(f"Error closing WebSocket: {e}", exc_info=True)
+            if self.rule_id:
                 try:
-                    if getattr(self.ws, 'open', False):
-                        await self.ws.close()
-                        if self.rule_id:
-                            await self.change_state_of_filter_rule(0, self.rule_id)
-                        logger.info("WebSocket client closed")
+                    await asyncio.shield(self.change_state_of_filter_rule(0, self.rule_id))
+                    logger.info(f"Filter rule {self.rule_id} deactivated")
                 except Exception as e:
-                    logger.error(f"Error closing WebSocket: {e}", exc_info=True)
-            self.should_reconnect = False
-            logger.info("Twitter parsing stopped")
+                    logger.error(f"Error deactivating filter rule: {e}", exc_info=True)
         except Exception as e:
-            logger.error(f"Error stopping real-time parsing: {str(e)}", exc_info=True)
+            logger.error(f"Error stopping parser: {e}", exc_info=True)
 
 
 if __name__ == "__main__":
