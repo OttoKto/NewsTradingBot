@@ -146,7 +146,7 @@ class Client:
     def position_info(self, category, symbol=None, baseCoin=None, settleCoin=None, limit=None, cursor=None):
         return self.request('get', '/v5/position/list', locals(), sign=True)
 
-    def create_order(self, category, symbol, side, orderType, qty=None, timeInForce="", orderFilter="", price="", stopLoss="", takeProfit="", triggerDirection="", triggerPrice="", marketUnit="", orderQty=""):
+    def create_order(self, category, symbol, side, orderType, qty=None, timeInForce="", orderFilter="", price="", stopLoss="", takeProfit="", triggerDirection="", triggerPrice="", marketUnit=""):
         return self.request('post', '/v5/order/create', locals(), sign=True)
 
     def amend_order(self, category, symbol, orderId, stop_loss=None, price=""):

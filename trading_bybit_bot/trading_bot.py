@@ -345,6 +345,7 @@ def load_latest_parameters():
 
 import math
 
+
 async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=False):
     client = Client(api_key, secret_key, testnet=testnet, demo=demo, asynced=True)
     commission_rate = 0.001
@@ -367,13 +368,13 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
     position = None
 
     try:
-        # Initialize tweets table and load existing tweets from CSV
+        # Инициализация таблицы твитов и загрузка существующих твитов
         init_tweets_table()
         tweets_loaded = load_tweets_from_csv()
         if tweets_loaded == 0:
             logger.warning("No tweets loaded from CSV, sentiment will default to 0.0")
 
-        # Fetch instrument info for precision
+        # Получение информации об инструменте
         instrument_info = await client.instruments_info(category="linear", symbol=symbol)
         instrument = instrument_info['result']['list'][0]
         min_qty = float(instrument['lotSizeFilter']['minOrderQty'])
@@ -382,13 +383,13 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
         logger.info(
             f"[{datetime.datetime.now()}] Instrument info: min_qty={min_qty}, qty_step={qty_step}, tick_size={tick_size}")
 
-        # Check for existing position
+        # Проверка существующей позиции
         position_response = await client.position_info(category="linear", symbol=symbol)
         logger.debug(f"[{datetime.datetime.now()}] Raw position response: {position_response}")
         position_list = position_response.get('result', {}).get('list', [])
         if position_list and float(position_list[0].get('size', 0)) > 0:
             position = position_list[0]
-            position['entry_time'] = str(datetime.datetime.now())  # Set for compatibility
+            position['entry_time'] = str(datetime.datetime.now())
             logger.info(
                 f"[{datetime.datetime.now()}] Found existing position: side={position.get('side', 'N/A')}, qty={position.get('size', '0')}, entry_price={position.get('avgPrice', 'N/A')}, tp={position.get('takeProfit', 'N/A')}, sl={position.get('stopLoss', 'N/A')}")
         else:
@@ -421,7 +422,12 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
                 kline['timestamp'] = pd.to_datetime(kline['timestamp'].astype(int), unit='ms')
                 kline.set_index('timestamp', inplace=True)
                 kline = kline.astype(float)
-                logger.debug(f"[{next_hour}] Kline columns: {kline.columns.tolist()}")
+                # Разворачиваем свечи в восходящий порядок (от старых к новым)
+                kline = kline.sort_index(ascending=True)
+                logger.info(
+                    f"[{next_hour}] Sorted candles (first 5 and last 5):\n{kline[['open', 'close', 'high', 'low']].head(5).to_string()}\n...\n{kline[['open', 'close', 'high', 'low']].tail(5).to_string()}")
+                logger.info(
+                    f"[{next_hour}] Latest candle: Timestamp={kline.index[-1]}, Open={kline['open'].iloc[-1]}, Close={kline['close'].iloc[-1]}")
 
                 required_columns = ['open', 'high', 'low', 'close', 'volume', 'turnover']
                 if not all(col in kline.columns for col in required_columns):
@@ -469,11 +475,13 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
                     logger.error(f"[{next_hour}] Error in calculate_index: {str(e)}", exc_info=True)
                     continue
 
-                # Use 2-day (48-hour) rolling sentiment
-                symbol_short = symbol.replace("USDT", "")  # BTCUSDT -> BTC
+                # Используем 2-дневный (48-часовой) роллинг сентимент
+                symbol_short = symbol.replace("USDT", "")
                 sentiment = get_rolling_sentiment(symbol_short, window_hours=48)
                 if sentiment == 0.0:
-                    logger.warning(f"[{next_hour}] No sentiment data for BTC over 48 hours, defaulting to 0.0")
+                    logger.warning(
+                        f"[{next_hour}] No sentiment data for {symbol_short} over 48 hours, defaulting to 0.0")
+
                 current_price = float(kline['close'].iloc[-1])
                 atr = float(kline['ATR'].iloc[-1]) if 'ATR' in kline.columns else 1.0
                 logger.info(
@@ -485,7 +493,7 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
                 ind_entry_0_5 = float(params[3])
                 leverage = float(params[4])
 
-                # Check if position is still open
+                # Проверка открытой позиции
                 if position is not None:
                     position_response = await client.position_info(category="linear", symbol=symbol)
                     logger.debug(f"[{next_hour}] Raw position response: {position_response}")
@@ -510,7 +518,7 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
                             conn.commit()
                         position = None
 
-                # Log decision logic with adjusted sentiment thresholds
+                # Логика принятия решения
                 long_condition = (ind_0_2 >= ind_entry_0_2 or ind_0_5 >= ind_entry_0_5) and sentiment <= 0.5
                 short_condition = (ind_0_2 <= -ind_entry_0_2 or ind_0_5 <= -ind_entry_0_5) and sentiment >= -0.5
                 logger.info(
@@ -519,14 +527,14 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
                     f"[{next_hour}] Short condition: (ind_0_2={ind_0_2:.4f} <= -{ind_entry_0_2:.2f} OR ind_0_5={ind_0_5:.4f} <= -{ind_entry_0_5:.2f}) AND sentiment={sentiment:.4f} >= -0.5 -> {short_condition}")
 
                 if position is None:
-                    # Calculate position size
+                    # Расчет объема позиции
                     volume = (capital * leverage) / current_price
                     volume = math.floor(volume / qty_step) * qty_step
                     volume = max(volume, min_qty)
                     logger.info(
                         f"[{next_hour}] Calculated volume: {volume}, price: {current_price}, leverage: {leverage}")
 
-                    # Set leverage
+                    # Установка левериджа
                     leverage_str = str(int(leverage))
                     logger.info(f"[{next_hour}] Setting leverage: {leverage_str}x for {symbol}")
                     try:
@@ -550,7 +558,7 @@ async def trading_loop(api_key, secret_key, symbol, capital, testnet=True, demo=
                             logger.error(f"[{next_hour}] Error setting leverage: {str(e)}", exc_info=True)
                             continue
 
-                    # Round TP/SL to tick_size
+                    # Округление TP/SL до tick_size
                     tp_price_long = round(
                         math.floor((current_price + take_profit * atr / leverage) / tick_size) * tick_size, 8)
                     sl_price_long = round(
